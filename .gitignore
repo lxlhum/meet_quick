@@ -35,3 +35,14 @@ jspm_packages
 
 # Optional REPL history
 .node_repl_history
+
+# config files
+profile.json
+
+# menu config files
+menu.json
+
+# launch files
+.vscode
+.vscode/*
+
