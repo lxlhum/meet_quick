@@ -6,14 +6,14 @@
     <div class="span4 box">
         <div class="content-wrap">
             <h6>登录</h6>
-            <input class="span12" type="text" placeholder="登录用户名" name="username" />
-            <input class="span12" type="password" placeholder="密码" name="password" /> {{!忘记密码在不开放
+            <input class="span12" type="text" placeholder="登录用户名" name="username" id="username" />
+            <input class="span12" type="password" placeholder="密码" name="password" id="password"/> {{!忘记密码在不开放
             <a href="#" class="forgot">Forgot password?</a>}} {{!
             <div class="remember">
                 <input id="remember-me" type="checkbox" />
                 <label for="remember-me">Remember me</label>
             </div>}}
-            <div class="btn-glow primary login">登录系统</div>
+            <div class="btn-glow primary login" id="login_check">登录系统</div>
         </div>
     </div>
 
@@ -33,9 +33,21 @@
 <link rel="stylesheet" type="text/css" href="../stylesheets/lib/font-awesome.css" />
 <link rel="stylesheet" href="../stylesheets/compiled/signin.css" type="text/css" media="screen" /> 
 {{/section}} 
-
 {{#section 'javascriptlib'}}
 <script src="../javascripts/jquery-latest.js"></script>
 <script src="../javascripts/bootstrap.min.js"></script>
 <script src="../javascripts/theme.js"></script>
+<script>
+    $("#login_check").click(function () {
+        //alert("check");
+        $.ajax({
+            type: 'POST',
+            url: "/users/loginpoiikkj",
+            data: {"username":$("#username").val(),"password":$("#password").val()},
+            //success: success,
+            dataType: "json"
+        });
+    })
+
+</script>
 {{/section}}

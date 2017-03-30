@@ -46,3 +46,6 @@ menu.json
 .vscode
 .vscode/*
 
+# schema doc
+schema
+

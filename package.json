@@ -14,6 +14,7 @@
     "gm": "^1.23.0",
     "handlebars": "^4.0.6",
     "hbs": "^4.0.1",
+    "mongoose": "^4.9.2",
     "morgan": "^1.7.0",
     "request": "^2.81.0",
     "serve-favicon": "^2.3.2",
