@@ -125,5 +125,4 @@ router.post('/meetconfig', wechat(config, function (req, res, next) {
   }
 }));
 
-
 module.exports = router;
