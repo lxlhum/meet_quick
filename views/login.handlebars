@@ -7,7 +7,7 @@
         <div class="content-wrap">
             <h6>登录</h6>
             <input class="span12" type="text" placeholder="登录用户名" name="username" id="username" />
-            <input class="span12" type="password" placeholder="密码" name="password" id="password"/> {{!忘记密码在不开放
+            <input class="span12" type="password" placeholder="密码" name="password" id="password" /> {{!忘记密码在不开放
             <a href="#" class="forgot">Forgot password?</a>}} {{!
             <div class="remember">
                 <input id="remember-me" type="checkbox" />
@@ -33,6 +33,7 @@
 <link rel="stylesheet" type="text/css" href="../stylesheets/lib/font-awesome.css" />
 <link rel="stylesheet" href="../stylesheets/compiled/signin.css" type="text/css" media="screen" /> 
 {{/section}} 
+
 {{#section 'javascriptlib'}}
 <script src="../javascripts/jquery-latest.js"></script>
 <script src="../javascripts/bootstrap.min.js"></script>
@@ -43,11 +44,19 @@
         $.ajax({
             type: 'POST',
             url: "/users/loginpoiikkj",
-            data: {"username":$("#username").val(),"password":$("#password").val()},
+            data: { "username": $("#username").val(), "password": $("#password").val() },
             //success: success,
-            dataType: "json"
+            dataType: "json",
+            success: function (res,check,result) {
+                if (res.success) {
+                    window.location.href="/users/admin";
+                     //windows.location.href="/url" 
+                }
+                else {
+                    alert("用户名或者密码错误");
+                }
+            }
         });
     })
-
 </script>
 {{/section}}
