@@ -31,12 +31,13 @@ router.post('/meetconfig', wechat(config, function (req, res, next) {
         res.reply('hehe');
       } else if (message.Content === 'getUserList') {
         api.getFollowers(function (err, data, res) {
-          console.log(err);
-          console.log(data);
-          console.log(res);
+          console.log("err is:"+err);
+          console.log("data is:"+data);
+          console.log("res is:"+res);
           // expect(err).not.to.be.ok();
           // expect(data).to.only.have.keys('total', 'count', 'data', 'next_openid');
           // done();
+          res.reply('done');
         });
       }
       else if (message.Content === 'qr') {
