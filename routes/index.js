@@ -30,10 +30,10 @@ router.post('/meetconfig', wechat(config, function (req, res, next) {
       if (message.Content === 'diaosi') {
         res.reply('hehe');
       } else if (message.Content === 'getUserList') {
-        api.getFollowers(function (err, data, res) {
+        api.getFollowers(function (err, data, response) {
           console.log("err is:"+err);
           console.log("data is:"+data);
-          console.log("res is:"+res);
+          console.log("res is:"+response);
           // expect(err).not.to.be.ok();
           // expect(data).to.only.have.keys('total', 'count', 'data', 'next_openid');
           // done();
