@@ -1,21 +1,13 @@
 var express = require('express');
 var router = express.Router();
 var wechat = require('wechat');
-var API = require('wechat-api');
+var api = require('../wechat/wechat_api.js');
 var config = require('../profile.json');
 var fs = require('fs');
 
 var request = require('request');
 
 var gm = require('gm').subClass({ imageMagick: true });
-
-var api = new API(config.appid, config.appsecret);
-api.getAccessToken(function (err, token) {
-  console.log("getAccessToken-err:" + err);
-  // console.log("accessToken:" + token);  //accessToken
-  console.log("accessToken:" + token.accessToken); 
-  console.log("accessToken:" + token.expireTime);    
-});
 
 var menu = JSON.stringify(require('../menu.json'));
 api.createMenu(menu, function (err, result) { });
@@ -37,7 +29,17 @@ router.post('/meetconfig', wechat(config, function (req, res, next) {
     case "text": {
       if (message.Content === 'diaosi') {
         res.reply('hehe');
-      } else if (message.Content === 'qr') {
+      } else if (message.Content === 'getUserList') {
+        api.getFollowers(function (err, data, res) {
+          console.log(err);
+          console.log(data);
+          console.log(res);
+          // expect(err).not.to.be.ok();
+          // expect(data).to.only.have.keys('total', 'count', 'data', 'next_openid');
+          // done();
+        });
+      }
+      else if (message.Content === 'qr') {
         api.createTmpQRCode(123, 100, function (err, data, response) {
           console.log(data);
 
