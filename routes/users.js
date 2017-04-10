@@ -6,17 +6,17 @@ var Accounts = require(config.models_factary)("account");
 var main = require(config.main_mp2);
 var login = require(config.login_mp);
 
-router.get('/', main.authorize_session_only_username,login.loginface);
+router.get('/', main.authorize_session_only_username, login.loginface);
 router.post('/login:id', login.loginAction);
 
-router.get('/admin', main.authorize_session_only_username,function (req, res, next) {
+router.get('/admin', main.authorize_session_only_username, function (req, res, next) {
   res.render('admin', { layout: "admin", title: 'Express' });
 
 });
 
 router.get('/putuser', function (req, res, next) {
 
- 
+  res.send("test");
 
 
 });
