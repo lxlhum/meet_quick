@@ -14,12 +14,7 @@ router.get('/admin', main.authorize_session_only_username, function (req, res, n
 
 });
 
-router.get('/putuser', function (req, res, next) {
-
-  res.send("test");
-
-
-});
+router.get('/putuser', login.tempAddUser);
 
 
 router.get('/getuser', function (req, res, next) {
