@@ -65,12 +65,13 @@ router.post('/meetconfig', wechat(config, function (req, res, next) {
           var c_path = path_wechat + 'c.png';
           var qr_path_out = path_wechat + message.FromUserName + message.CreateTime + '_out.png';
 
-          var fileReadStream = fs.createReadStream(a_path);
+          //测试用
+          // var fileReadStream = fs.createReadStream(a_path);
 
           var fileWriteStream = fs.createWriteStream(qr_path);
           console.log("qr_path:" + qr_path);
-          // request(qucodemedia).pipe(fileWriteStream);
-          fileReadStream.pipe(fileWriteStream);
+          request(qucodemedia).pipe(fileWriteStream);
+          // fileReadStream.pipe(fileWriteStream);
           fileWriteStream.on('close', function () {
             console.log('copy over');
 
