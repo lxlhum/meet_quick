@@ -32,7 +32,14 @@ router.post('/meetconfig', wechat(config, function (req, res, next) {
       if (message.Content === 'diaosi') {
         res.reply('hehe');
       } else if (message.Content === 'getUserList') {
-        customer_create();
+        if (finish_customer_create()) {
+          res.reply('保存成功');
+        }
+        else {
+          res.reply('保存失败');
+        }
+
+
       }
       else if (message.Content === 'qr') {
         api.createTmpQRCode("x", 100, function (err, data, response) {
@@ -166,18 +173,40 @@ function getBatchGetUsers(openids) {
   });
 };
 
-async function customer_create() {
+function customer_create(alldatas) {
+  return new Promise((resolve, reject) => {
+    Customer.create(alldatas, function (err, response) {
+      if (err) {
+        console.log("保存失败:" + err);
+        resolve(false);
+      }
+      else {
+        console.log("保存成功:" + response);
+        resolve(true);
+      }
+    });
+  });
+}
+
+
+
+
+async function finish_customer_create() {
   let openids = await getFollower();
   let alldatas = await getBatchGetUsers(openids);
-  Customer.create(alldatas, function (err, jellybean, snickers) {
-    if (err) {
-      console.log("保存失败" + err);
-      res.reply('保存失败');
-    }
-    else {
-      console.log("Res:" + jellybean);
-      console.log("Res:" + snickers);
-      res.reply('保存成功');
-    }
-  });
+  // let check_create_success = await customer_create(alldatas);
+
+  return await customer_create(alldatas);
+
+  // Customer.create(alldatas, function (err, jellybean, snickers) {
+  //   if (err) {
+  //     console.log("保存失败" + err);
+  //     res.reply('保存失败');
+  //   }
+  //   else {
+  //     console.log("Res:" + jellybean);
+  //     console.log("Res:" + snickers);
+  //     res.reply('保存成功');
+  //   }
+  // });
 }
