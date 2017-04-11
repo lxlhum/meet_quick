@@ -32,56 +32,7 @@ router.post('/meetconfig', wechat(config, function (req, res, next) {
       if (message.Content === 'diaosi') {
         res.reply('hehe');
       } else if (message.Content === 'getUserList') {
-
-        function getFollower() {
-          return new Promise((resolve, reject) => {
-            api.getFollowers(function (err, data, response) {
-              resolve(data.data.openid);
-            });
-          });
-        };
-
-        function getBatchGetUsers(openids) {
-          return new Promise((resolve, reject) => {
-            api.batchGetUsers(openids, function (err, data, responses) {
-              resolve(data["user_info_list"]);
-            });
-          });
-        };
-
-        async function customer_create() {
-          let openids = await getFollower();
-          let alldatas = await getBatchGetUsers(openids);
-          Customer.create(alldatas, function (err, jellybean, snickers) {
-            if (err) {
-              console.log("保存失败" + err);
-              res.reply('保存失败');
-            }
-            else {
-              console.log("Res:" + jellybean);
-              console.log("Res:" + snickers);
-              res.reply('保存成功');
-            }
-          });
-        }
         customer_create();
-        // api.getFollowers(function (err, data, response) {
-        //   console.log("err is:" + err);
-        //   var openids = data.data.openid;
-        //   api.batchGetUsers(openids, function (err, data, responses) {
-        //     Customer.create(data["user_info_list"], function (err, jellybean, snickers) {
-        //       if (err) {
-        //         console.log("保存失败" + err);
-        //         res.reply('保存失败');
-        //       }
-        //       else {
-        //         console.log("Res:" + jellybean);
-        //         console.log("Res:" + snickers);
-        //         res.reply('保存成功');
-        //       }
-        //     });
-        //   });
-        // });
       }
       else if (message.Content === 'qr') {
         api.createTmpQRCode("x", 100, function (err, data, response) {
@@ -198,3 +149,35 @@ router.post('/meetconfig', wechat(config, function (req, res, next) {
 }));
 
 module.exports = router;
+
+function getFollower() {
+  return new Promise((resolve, reject) => {
+    api.getFollowers(function (err, data, response) {
+      resolve(data.data.openid);
+    });
+  });
+};
+
+function getBatchGetUsers(openids) {
+  return new Promise((resolve, reject) => {
+    api.batchGetUsers(openids, function (err, data, responses) {
+      resolve(data["user_info_list"]);
+    });
+  });
+};
+
+async function customer_create() {
+  let openids = await getFollower();
+  let alldatas = await getBatchGetUsers(openids);
+  Customer.create(alldatas, function (err, jellybean, snickers) {
+    if (err) {
+      console.log("保存失败" + err);
+      res.reply('保存失败');
+    }
+    else {
+      console.log("Res:" + jellybean);
+      console.log("Res:" + snickers);
+      res.reply('保存成功');
+    }
+  });
+}
