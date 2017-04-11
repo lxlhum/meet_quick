@@ -194,17 +194,11 @@ function customer_create(alldatas) {
         reject(err);
       }
       else {
-        console.log("保存成功:" + response);
+        // console.log("保存成功:" + response);
         resolve(true);
       }
     });
   });
 }
-
-// async function finish_customer_create() {
-//     let openids = await getFollower();
-//     let alldatas = await getBatchGetUsers(openids);
-//     let customer_create_success = await customer_create(alldatas);
-// };
 
 module.exports = router;
