@@ -43,7 +43,6 @@ router.post('/meetconfig', wechat(config, function (req, res, next) {
 
         function getBatchGetUsers(openids) {
           return new Promise((resolve, reject) => {
-            resolve(data["user_info_list"]);
             api.batchGetUsers(openids, function (err, data, responses) {
               resolve(data["user_info_list"]);
             });
