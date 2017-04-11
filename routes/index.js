@@ -65,7 +65,8 @@ router.post('/meetconfig', wechat(config, function (req, res, next) {
               mediaId: media_id
             }
           });
-        }).catch(() => {
+        }).catch((err) => {
+          console.log(err);
           res.reply('获取二维码失败');
         })
 
