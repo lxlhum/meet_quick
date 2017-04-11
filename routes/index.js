@@ -198,19 +198,19 @@ function customer_create(alldatas) {
 }
 
 async function finish_customer_create() {
-  try {
+  // try {
     let openids = await getFollower();
     let alldatas = await getBatchGetUsers(openids);
     let customer_create_success = await customer_create(alldatas);
-    return new Promise((resolve, reject) => {
-      resolve(customer_create_success);
-    });
-  } catch (err) {
-    console.log("try-catch:" + err);
-    return new Promise((resolve, reject) => {
-      reject(false);
-    });
-  }
+    // return new Promise((resolve, reject) => {
+    //   resolve(customer_create_success);
+    // });
+  // } catch (err) {
+    // console.log("try-catch:" + err);
+    // return new Promise((resolve, reject) => {
+    //   reject(false);
+    // });
+  // }
 };
 
 module.exports = router;
