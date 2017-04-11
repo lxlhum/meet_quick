@@ -32,12 +32,14 @@ router.post('/meetconfig', wechat(config, function (req, res, next) {
       } else if (message.Content === 'getUserList') {
         api.getFollowers(function (err, data, response) {
           console.log("err is:" + err);
-          var datas = data.data;
-          for (var item in datas) {
-            console.log("item is:" + item);
-            console.log("data is:" + datas[item]);
+          var openids = data.data.openid;
+          api.batchGetUsers(openids, function (err, data, responses) {
 
-          }
+            for (var i in data) {
+              console.log("data is:" + data[i]);
+            }
+          });
+
           for (var element in data) {
             console.log("res is:" + response[element]);
             console.log("element is:" + element);
