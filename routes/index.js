@@ -53,7 +53,7 @@ router.post('/meetconfig', wechat(config, function (req, res, next) {
 
         (async () => {
           let tmpQRCodeURL = await getTmpQRCodeURL();
-          let getDownTmpQRCode = await downTmpQRCode(qr_path, tmpQRCodeURL);
+          await downTmpQRCode(qr_path, tmpQRCodeURL);
           await gmResize(qr_path, qr_path_out_resize);
           await gmComposite(a_path, qr_path_out_resize, qr_path_out);
           let media_id = await douploadMedia(qr_path_out);
