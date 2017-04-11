@@ -75,32 +75,40 @@ router.post('/meetconfig', wechat(config, function (req, res, next) {
           fileWriteStream.on('close', function () {
             console.log('copy over');
 
-            api.uploadMedia(qr_path, "image", function (err, result) {
 
-              // gm(a_path)
-              //   .resize(480, 240)
-              //   .noProfile()
-              //   .write(qr_path_out, function (err) {
-              //     console.log(err);
-              //     if (!err) console.log('done');
-              //   });
+            gm(a_path)
+              .composite(qr_path)
+              .geometry('+100+150')
+              .write(qr_path_out, function (err) {
+                if (!err) console.log("Written composite image.");
 
-              gm(a_path)
-                .composite(b_path)
-                .geometry('+100+150')
-                .write(qr_path_out, function (err) {
-                  if (!err) console.log("Written composite image.");
+                api.uploadMedia(qr_path_out, "image", function (err, result) {
+
+                  // gm(a_path)
+                  //   .resize(480, 240)
+                  //   .noProfile()
+                  //   .write(qr_path_out, function (err) {
+                  //     console.log(err);
+                  //     if (!err) console.log('done');
+                  //   });
+
+                  // gm(a_path)
+                  //   .composite(b_path)
+                  //   .geometry('+100+150')
+                  //   .write(qr_path_out, function (err) {
+                  //     if (!err) console.log("Written composite image.");
+                  //   });
+
+                  console.log("result:" + result);
+                  console.log("err:" + err);
+                  res.reply({
+                    type: "image",
+                    content: {
+                      mediaId: result.media_id
+                    }
+                  });
                 });
-
-              console.log("result:" + result);
-              console.log("err:" + err);
-              res.reply({
-                type: "image",
-                content: {
-                  mediaId: result.media_id
-                }
               });
-            })
           });
         });
       }
