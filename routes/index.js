@@ -43,7 +43,7 @@ router.post('/meetconfig', wechat(config, function (req, res, next) {
               // console.log("data is:" + data[i]);
               var infos = datas[i];
               var customer = new Customer(infos);
-              user.save(function (err, response) {
+              customer.save(function (err, response) {
 
                 if (err) {
                   console.log("保存失败" + err);
