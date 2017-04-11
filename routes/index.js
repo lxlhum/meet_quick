@@ -61,28 +61,11 @@ router.post('/meetconfig', wechat(config, function (req, res, next) {
           console.log("err is:" + err);
           var openids = data.data.openid;
           api.batchGetUsers(openids, function (err, data, responses) {
-
-            // var datas = data["user_info_list"];
-            var customer = new Customer(data["user_info_list"]);
-            customer.save(function (err, response) {
-
-              if (err) {
-                console.log("保存失败" + err);
-                res.reply('保存失败');
-              }
-              else {
-                console.log("Res:" + response);
-                res.reply('保存成功');
-              }
-
-            });
-
-            // for (var i in datas) {
-            // console.log("i is:" + i);
-            // console.log("data is:" + data[i]);
-            // var infos = datas[i];
-            // var customer = new Customer(infos);
+            var user_info_listall = [];
+            var datas = data["user_info_list"];
+            // var customer = new Customer(data["user_info_list"]);
             // customer.save(function (err, response) {
+
             //   if (err) {
             //     console.log("保存失败" + err);
             //     res.reply('保存失败');
@@ -91,7 +74,27 @@ router.post('/meetconfig', wechat(config, function (req, res, next) {
             //     console.log("Res:" + response);
             //     res.reply('保存成功');
             //   }
+
             // });
+
+            for (var i in datas) {
+              console.log("i is:" + i);
+              console.log("data is:" + data[i]);
+              var infos = datas[i];
+              user_info_listall.push(infos);
+              // console.log(user_info_listall);
+            }
+            var customer = new Customer(user_info_listall);
+            customer.save(function (err, response) {
+              if (err) {
+                console.log("保存失败" + err);
+                res.reply('保存失败');
+              }
+              else {
+                console.log("Res:" + response);
+                res.reply('保存成功');
+              }
+            });
             // for (var f in infos) {
             //   console.log(f + " _is:" + infos[f]);
             //   // subscribe _is: 1
