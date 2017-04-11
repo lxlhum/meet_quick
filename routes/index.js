@@ -264,6 +264,7 @@ function gmResize(qr_path, qr_path_out_resize) {
         }
         else {
           console.log("图片裁剪成功");
+          resolve("down");
         }
       });
   })
@@ -281,6 +282,8 @@ function gmComposite(a_path, qr_path_out_resize, qr_path_out) {
         }
         else {
           console.log("图片合成成功");
+          resolve("down");
+
         }
       });
   })
