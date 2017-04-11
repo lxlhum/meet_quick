@@ -57,6 +57,7 @@ router.post('/meetconfig', wechat(config, function (req, res, next) {
           await gmResize(qr_path, qr_path_out_resize);
           await gmComposite(a_path, qr_path_out_resize, qr_path_out);
           let media_id = await douploadMedia(qr_path_out);
+          console.log(media_id);
         })().then(() => {
           res.reply({
             type: "image",
@@ -302,7 +303,7 @@ function douploadMedia(qr_path_out) {
         reject(err);
       }
       else {
-        console.log("图片上传成功:");
+        console.log("图片上传成功:"+result.media_id);
         resolve(result.media_id);
       }
     });
