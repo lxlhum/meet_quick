@@ -88,13 +88,15 @@ router.post('/meetconfig', wechat(config, function (req, res, next) {
             // user_info_listall = user_info_listall.replace("]",);
             // var customer = new Customer(user_info_listall);
             // var customer = new Customer();
-            customer.save(function (err, response) {
+
+            Customer.creat(user_info_listall,function (err, jellybean, snickers) {
               if (err) {
                 console.log("保存失败" + err);
                 res.reply('保存失败');
               }
               else {
-                console.log("Res:" + response);
+                console.log("Res:" + jellybean);
+                console.log("Res:" + snickers);
                 res.reply('保存成功');
               }
             });
