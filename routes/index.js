@@ -33,31 +33,19 @@ router.post('/meetconfig', wechat(config, function (req, res, next) {
         res.reply('hehe');
       } else if (message.Content === 'getUserList') {
 
-        // function getFollower() {
-        //   return new Promise((resolve, reject) => {
-        //     api.getFollowers(function (err, data, response) {
-        //       resolve(data.data.openid);
-        //     });
-        //   });
-        // };
-
-        // function getBatchGetUsers(openids) {
-        //   return new Promise((resolve, reject) => {
-        //     api.batchGetUsers(openids, function (err, data, responses) {
-        //       resolve(data["user_info_list"]);
-        //     });
-        //   });
-        // };
-
         function getFollower() {
-          api.getFollowers(function (err, data, response) {
-            return data.data.openid;
+          return new Promise((resolve, reject) => {
+            api.getFollowers(function (err, data, response) {
+              resolve(data.data.openid);
+            });
           });
         };
 
         function getBatchGetUsers(openids) {
-          api.batchGetUsers(openids, function (err, data, responses) {
-            return data["user_info_list"];
+          return new Promise((resolve, reject) => {
+            api.batchGetUsers(openids, function (err, data, responses) {
+              resolve(data["user_info_list"]);
+            });
           });
         };
 
