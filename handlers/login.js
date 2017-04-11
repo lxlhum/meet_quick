@@ -35,11 +35,11 @@ exports.loginAction = function (req, res, next) {
         }
         else {
 
-            if (err){
+            if (err) {
                 console.log("Error:" + err);
-                res.send({ "success": false ,"Error":"系统错误"});
-            } 
-            
+                res.send({ "success": false, "Error": "系统错误" });
+            }
+
             console.log("用户名或者密码错误" + err);
             res.send({ "success": false });
         }
@@ -61,24 +61,26 @@ exports.tempAddUser = function (req, res, next) {
     var hashedPassword = shaSum_password.digest('hex');
     console.log(hashedPassword);
 
-    var user = new User({
+    var user = new User([{
         username: hashedUsername,
         password: hashedPassword,
         lastlogintime: new Date()
-    },{username: hashedUsername,
-        password: hashedPassword,
-        lastlogintime: new Date()});
-    user.save(function (err, response) {
+    }, {
+        username: hashedUsername,
+            password: hashedPassword,
+            lastlogintime: new Date()
+        }]);
+user.save(function (err, response) {
 
-        if (err) {
-            console.log("保存失败" + err);
-            res.send('保存失败');
-        }
-        else {
-            console.log("Res:" + response);
-            res.send('保存成功');
-        }
+    if (err) {
+        console.log("保存失败" + err);
+        res.send('保存失败');
+    }
+    else {
+        console.log("Res:" + response);
+        res.send('保存成功');
+    }
 
-    });
+});
 
 }
