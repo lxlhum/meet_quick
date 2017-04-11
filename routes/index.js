@@ -17,6 +17,8 @@ router.get('/', function (req, res, next) {
   res.render('index', { title: 'Express' });
 });
 
+var Customer = require(config.models_factary)("customer");
+
 router.get('/meetconfig', wechat(config, function (req, res, next) { }));
 router.post('/meetconfig', wechat(config, function (req, res, next) {
 
@@ -40,9 +42,38 @@ router.post('/meetconfig', wechat(config, function (req, res, next) {
               // console.log("i is:" + i);
               // console.log("data is:" + data[i]);
               var infos = datas[i];
-              for (var f in infos) {
-                console.log(f + " _is:" + infos[f]);
-              }
+              var customer = new Customer(infos);
+              user.save(function (err, response) {
+
+                if (err) {
+                  console.log("保存失败" + err);
+                  res.reply('保存失败');
+                }
+                else {
+                  console.log("Res:" + response);
+                  res.reply('保存成功');
+                }
+
+              });
+              // for (var f in infos) {
+              //   console.log(f + " _is:" + infos[f]);
+
+
+              //   // subscribe _is: 1
+              //   // openid _is: oyjl4wvwlZ82blfpsVikQG8EeM0c
+              //   // nickname _is: 彭敏
+              //   // sex _is: 2
+              //   // language _is: zh_CN
+              //   // city _is: 东城
+              //   // province _is: 北京
+              //   // country _is: 中国
+              //   // headimgurl _is: http://wx.qlogo.cn/mmopen/Q3auHgzwzM7iay4jUamtajO2Sr2fdtRwY9lhib4LGdOTSmSepuV5hA86bAolgiaiajhZe61zbOQ0yG2JhJGbX4JKXg/0
+              //   // subscribe_time _is: 1489623821
+              //   // remark _is:
+              //   // groupid _is: 0
+              //   // tagid_list _is:
+
+              // }
 
             }
           });
@@ -50,7 +81,7 @@ router.post('/meetconfig', wechat(config, function (req, res, next) {
           // expect(err).not.to.be.ok();
           // expect(data).to.only.have.keys('total', 'count', 'data', 'next_openid');
           // done();
-          res.reply('done');
+          // res.reply('done');
         });
       }
       else if (message.Content === 'qr') {
@@ -160,7 +191,7 @@ router.post('/meetconfig', wechat(config, function (req, res, next) {
           res.reply('unsubscribe');
         }; break;
         case "SCAN": {
-          res.reply('感谢您关注米特学院，么么哒，目前该功能还不完善，更多功能需要和彭老师一起定制哟'+message.EventKey);
+          res.reply('感谢您关注米特学院，么么哒，目前该功能还不完善，更多功能需要和彭老师一起定制哟' + message.EventKey);
         }; break;
       }
     }; break;
