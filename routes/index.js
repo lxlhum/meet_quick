@@ -56,17 +56,17 @@ router.post('/meetconfig', wechat(config, function (req, res, next) {
       else if (message.Content === 'qr') {
         api.createTmpQRCode(123, 100, function (err, data, response) {
           console.log(data);
-
+          var path_wechat = "/home/userp/meet_quick/wechat/wechat_temp_qr/";
           var qucodemedia = api.showQRCodeURL(data.ticket);
           console.log("showQRCodeURL:" + qucodemedia);
-          var qr_path = '../wechat/wechat_temp_qr/' + message.FromUserName + message.CreateTime + '.png';
-          var a_path = '/home/userp/meet_quick/wechat/wechat_temp_qr/a.jpg';
-          var b_path = '../wechat/wechat_temp_qr/b.jpg';
-          var c_path = '../wechat/wechat_temp_qr/c.png';
-          var qr_path_out = '../wechat/wechat_temp_qr/' + message.FromUserName + message.CreateTime + '_out.png';
+          var qr_path = path_wechat + message.FromUserName + message.CreateTime + '.png';
+          var a_path = path_wechat + 'a.jpg';
+          var b_path = path_wechat + 'b.jpg';
+          var c_path = path_wechat + 'c.png';
+          var qr_path_out = path_wechat + message.FromUserName + message.CreateTime + '_out.png';
 
           var fileReadStream = fs.createReadStream(a_path);
-      
+
           var fileWriteStream = fs.createWriteStream(qr_path);
           console.log("qr_path:" + qr_path);
           // request(qucodemedia).pipe(fileWriteStream);
