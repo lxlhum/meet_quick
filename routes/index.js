@@ -60,7 +60,7 @@ router.post('/meetconfig', wechat(config, function (req, res, next) {
           var qucodemedia = api.showQRCodeURL(data.ticket);
           console.log("showQRCodeURL:" + qucodemedia);
           var qr_path = '../wechat/wechat_temp_qr/' + message.FromUserName + message.CreateTime + '.png';
-          var a_path = '../wechat/wechat_temp_qr/a.jpg';
+          var a_path = '/home/userp/meet_quick/wechat/wechat_temp_qr/a.jpg';
           var b_path = '../wechat/wechat_temp_qr/b.jpg';
           var c_path = '../wechat/wechat_temp_qr/c.png';
           var qr_path_out = '../wechat/wechat_temp_qr/' + message.FromUserName + message.CreateTime + '_out.png';
