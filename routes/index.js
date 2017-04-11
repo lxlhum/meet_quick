@@ -32,9 +32,10 @@ router.post('/meetconfig', wechat(config, function (req, res, next) {
       } else if (message.Content === 'getUserList') {
         api.getFollowers(function (err, data, response) {
           console.log("err is:" + err);
-          for (var item in data) {
+          for (var item in data.data) {
             console.log("item is:" + item);
             console.log("data is:" + data[item]);
+
           }
           for (var element in data) {
             console.log("res is:" + response[element]);
