@@ -63,7 +63,8 @@ router.post('/meetconfig', wechat(config, function (req, res, next) {
           var a_path = path_wechat + 'a.jpg';
           var b_path = path_wechat + 'b.jpg';
           var c_path = path_wechat + 'c.png';
-          var qr_path_out = path_wechat + message.FromUserName + message.CreateTime + '_out.png';
+          var qr_path_out_resize = path_wechat + message.FromUserName + message.CreateTime + '_out1.png';
+          var qr_path_out = path_wechat + message.FromUserName + message.CreateTime + '_out2.png';
 
           //测试用
           // var fileReadStream = fs.createReadStream(a_path);
@@ -76,38 +77,46 @@ router.post('/meetconfig', wechat(config, function (req, res, next) {
             console.log('copy over');
 
 
-            gm(a_path)
-              .composite(qr_path)
-              .geometry('+100+150')
-              .write(qr_path_out, function (err) {
-                if (!err) console.log("Written composite image.");
+            gm(qr_path)
+              .resize(160, 160)
+              .noProfile()
+              .write(qr_path_out_resize, function (err) {
+                if (!err) console.log('done');
 
-                api.uploadMedia(qr_path_out, "image", function (err, result) {
 
-                  // gm(a_path)
-                  //   .resize(480, 240)
-                  //   .noProfile()
-                  //   .write(qr_path_out, function (err) {
-                  //     console.log(err);
-                  //     if (!err) console.log('done');
-                  //   });
+                gm(a_path)
+                  .composite(qr_path_out_resize)
+                  .geometry('+100+150')
+                  .write(qr_path_out, function (err) {
+                    if (!err) console.log("Written composite image.");
 
-                  // gm(a_path)
-                  //   .composite(b_path)
-                  //   .geometry('+100+150')
-                  //   .write(qr_path_out, function (err) {
-                  //     if (!err) console.log("Written composite image.");
-                  //   });
+                    api.uploadMedia(qr_path_out, "image", function (err, result) {
 
-                  console.log("result:" + result);
-                  console.log("err:" + err);
-                  res.reply({
-                    type: "image",
-                    content: {
-                      mediaId: result.media_id
-                    }
+                      // gm(a_path)
+                      //   .resize(480, 240)
+                      //   .noProfile()
+                      //   .write(qr_path_out, function (err) {
+                      //     console.log(err);
+                      //     if (!err) console.log('done');
+                      //   });
+
+                      // gm(a_path)
+                      //   .composite(b_path)
+                      //   .geometry('+100+150')
+                      //   .write(qr_path_out, function (err) {
+                      //     if (!err) console.log("Written composite image.");
+                      //   });
+
+                      console.log("result:" + result);
+                      console.log("err:" + err);
+                      res.reply({
+                        type: "image",
+                        content: {
+                          mediaId: result.media_id
+                        }
+                      });
+                    });
                   });
-                });
               });
           });
         });
