@@ -61,8 +61,8 @@ router.post('/meetconfig', wechat(config, function (req, res, next) {
           console.log("err is:" + err);
           var openids = data.data.openid;
           api.batchGetUsers(openids, function (err, data, responses) {
-            var user_info_listall = [];
-            var datas = data["user_info_list"];
+            // var user_info_listall = [];
+            // var datas = data["user_info_list"];
             // var customer = new Customer(data["user_info_list"]);
             // customer.save(function (err, response) {
 
@@ -77,19 +77,19 @@ router.post('/meetconfig', wechat(config, function (req, res, next) {
 
             // });
 
-            for (var i in datas) {
-              console.log("i is:" + i);
-              console.log("data is:" + datas[i]);
-              var infos = datas[i];
-              user_info_listall.push(infos);
-              // console.log(user_info_listall);
-            }
+            // for (var i in datas) {
+            //   console.log("i is:" + i);
+            //   console.log("data is:" + datas[i]);
+            //   var infos = datas[i];
+            //   user_info_listall.push(infos);
+            //   // console.log(user_info_listall);
+            // }
             // user_info_listall = user_info_listall.replace("[",);
             // user_info_listall = user_info_listall.replace("]",);
             // var customer = new Customer(user_info_listall);
             // var customer = new Customer();
 
-            Customer.create(user_info_listall,function (err, jellybean, snickers) {
+            Customer.create(data["user_info_list"],function (err, jellybean, snickers) {
               if (err) {
                 console.log("保存失败" + err);
                 res.reply('保存失败');
