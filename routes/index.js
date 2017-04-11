@@ -84,8 +84,8 @@ router.post('/meetconfig', wechat(config, function (req, res, next) {
               user_info_listall.push(infos);
               // console.log(user_info_listall);
             }
-            user_info_listall = user_info_listall.replace("[",);
-            user_info_listall = user_info_listall.replace("]",);
+            // user_info_listall = user_info_listall.replace("[",);
+            // user_info_listall = user_info_listall.replace("]",);
             // var customer = new Customer(user_info_listall);
             // var customer = new Customer();
             customer.save(function (err, response) {
