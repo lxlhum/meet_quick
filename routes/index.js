@@ -32,7 +32,11 @@ router.post('/meetconfig', wechat(config, function (req, res, next) {
       if (message.Content === 'diaosi') {
         res.reply('hehe');
       } else if (message.Content === 'getUserList') {
-        finish_customer_create().then(() => {
+        (async () => {
+          let openids = await getFollower();
+          let alldatas = await getBatchGetUsers(openids);
+          let customer_create_success = await customer_create(alldatas);
+        })().then(() => {
           res.reply('保存成功');
         }).catch(() => {
           res.reply('保存失败');
@@ -157,7 +161,7 @@ function getFollower() {
     api.getFollowers(function (err, data, response) {
       if (err) {
         console.log("获取关注用户数据失败:" + err);
-        reject(false);
+        reject(err);
       }
       else {
         console.log("获取关注用户数据成功:");
@@ -172,7 +176,7 @@ function getBatchGetUsers(openids) {
     api.batchGetUsers(openids, function (err, data, responses) {
       if (err) {
         console.log("批量获取数据失败:" + err);
-        reject(false);
+        reject(err);
       }
       else {
         console.log("批量获取数据成功:");
@@ -187,7 +191,7 @@ function customer_create(alldatas) {
     Customer.create(alldatas, function (err, response) {
       if (err) {
         console.log("保存失败:" + err);
-        reject(false);
+        reject(err);
       }
       else {
         console.log("保存成功:" + response);
@@ -197,20 +201,10 @@ function customer_create(alldatas) {
   });
 }
 
-async function finish_customer_create() {
-  // try {
-    let openids = await getFollower();
-    let alldatas = await getBatchGetUsers(openids);
-    let customer_create_success = await customer_create(alldatas);
-    // return new Promise((resolve, reject) => {
-    //   resolve(customer_create_success);
-    // });
-  // } catch (err) {
-    // console.log("try-catch:" + err);
-    // return new Promise((resolve, reject) => {
-    //   reject(false);
-    // });
-  // }
-};
+// async function finish_customer_create() {
+//     let openids = await getFollower();
+//     let alldatas = await getBatchGetUsers(openids);
+//     let customer_create_success = await customer_create(alldatas);
+// };
 
 module.exports = router;
