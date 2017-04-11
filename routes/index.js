@@ -33,10 +33,12 @@ router.post('/meetconfig', wechat(config, function (req, res, next) {
         api.getFollowers(function (err, data, response) {
           console.log("err is:" + err);
           for (var item in data) {
+            console.log("item is:" + item);
             console.log("data is:" + data[item]);
           }
           for (var element in data) {
             console.log("res is:" + response[element]);
+            console.log("element is:" + element);
           }
 
           // expect(err).not.to.be.ok();
