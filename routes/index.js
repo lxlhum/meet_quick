@@ -246,9 +246,15 @@ function downTmpQRCode(qr_path, qucodemedia) {
     var fileWriteStream = fs.createWriteStream(qr_path);
     request(qucodemedia).pipe(fileWriteStream);
     fileWriteStream.on('close', function (err) {
-      console.log('copy over');
+      if (err) {
+        console.log("图片下载失败:" + err);
+        reject(err);
+      }
+      else {
+        console.log('copy over');
+        resolve("done");
+      }
     });
-    resolve("down");
   });
 }
 
@@ -264,7 +270,7 @@ function gmResize(qr_path, qr_path_out_resize) {
         }
         else {
           console.log("图片裁剪成功");
-          resolve("down");
+          resolve("done");
         }
       });
   })
@@ -282,8 +288,7 @@ function gmComposite(a_path, qr_path_out_resize, qr_path_out) {
         }
         else {
           console.log("图片合成成功");
-          resolve("down");
-
+          resolve("done");
         }
       });
   })
