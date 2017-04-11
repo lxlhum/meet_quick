@@ -158,7 +158,14 @@ router.post('/meetconfig', wechat(config, function (req, res, next) {
 function getFollower() {
   return new Promise((resolve, reject) => {
     api.getFollowers(function (err, data, response) {
-      resolve(data.data.openid);
+      if (err) {
+        console.log("获取关注用户数据失败:" + err);
+        reject(false);
+      }
+      else {
+        console.log("获取关注用户数据成功:");
+        resolve(data.data.openid);
+      }
     });
   });
 };
@@ -196,9 +203,12 @@ function customer_create(alldatas) {
 async function finish_customer_create() {
   try {
     let openids = await getFollower();
+    console.log(openids);
     let alldatas = await getBatchGetUsers(openids);
+    console.log(alldatas);
     return await customer_create(alldatas);
   } catch (err) {
+    console.log(err);
     return false;
   }
 };
