@@ -54,7 +54,7 @@ router.post('/meetconfig', wechat(config, function (req, res, next) {
         });
       }
       else if (message.Content === 'qr') {
-        api.createTmpQRCode(123, 100, function (err, data, response) {
+        api.createTmpQRCode("，事件：二维码事件测试", 100, function (err, data, response) {
           console.log(data);
           var path_wechat = "/home/userp/meet_quick/wechat/wechat_temp_qr/";
           var qucodemedia = api.showQRCodeURL(data.ticket);
@@ -86,7 +86,7 @@ router.post('/meetconfig', wechat(config, function (req, res, next) {
 
                 gm(a_path)
                   .composite(qr_path_out_resize)
-                  .geometry('+50+100')
+                  .geometry('+35+110')
                   .write(qr_path_out, function (err) {
                     if (!err) console.log("Written composite image.");
 
@@ -158,6 +158,9 @@ router.post('/meetconfig', wechat(config, function (req, res, next) {
         }; break;
         case "unsubscribe": {
           res.reply('unsubscribe');
+        }; break;
+        case "SCAN": {
+          res.reply('感谢您关注米特学院，么么哒，目前该功能还不完善，更多功能需要和彭老师一起定制哟'+message.EventKey);
         }; break;
       }
     }; break;
