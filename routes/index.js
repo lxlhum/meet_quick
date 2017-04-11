@@ -242,9 +242,9 @@ function getTmpQRCodeURL() {
 }
 
 function downTmpQRCode(qr_path, qucodemedia) {
-  var fileWriteStream = fs.createWriteStream(qr_path);
-  request(qucodemedia).pipe(fileWriteStream);
   return new Promise((resolve, reject) => {
+    var fileWriteStream = fs.createWriteStream(qr_path);
+    request(qucodemedia).pipe(fileWriteStream);
     fileWriteStream.on('close', function (err) {
       console.log('copy over');
     });
