@@ -35,7 +35,7 @@ router.post('/meetconfig', wechat(config, function (req, res, next) {
         (async () => {
           let openids = await getFollower();
           let alldatas = await getBatchGetUsers(openids);
-          let customer_create_success = await customer_create(alldatas);
+          await customer_create(alldatas);
         })().then(() => {
           res.reply('保存成功');
         }).catch(() => {
