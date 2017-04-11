@@ -86,7 +86,7 @@ router.post('/meetconfig', wechat(config, function (req, res, next) {
 
                 gm(a_path)
                   .composite(qr_path_out_resize)
-                  .geometry('+200+110')
+                  .geometry('+185+95')
                   .write(qr_path_out, function (err) {
                     if (!err) console.log("Written composite image.");
 
