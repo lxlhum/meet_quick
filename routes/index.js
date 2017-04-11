@@ -64,7 +64,7 @@ router.post('/meetconfig', wechat(config, function (req, res, next) {
             }
           });
         }
-
+        test();
         // api.getFollowers(function (err, data, response) {
         //   console.log("err is:" + err);
         //   var openids = data.data.openid;
