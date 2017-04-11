@@ -56,9 +56,10 @@ router.post('/meetconfig', wechat(config, function (req, res, next) {
           await downTmpQRCode(qr_path, tmpQRCodeURL);
           await gmResize(qr_path, qr_path_out_resize);
           await gmComposite(a_path, qr_path_out_resize, qr_path_out);
-          let media_id = await douploadMedia(qr_path_out);
-          console.log(media_id);
-        })().then(() => {
+          await douploadMedia(qr_path_out);
+          // console.log(media_id);
+        })().then((media_id) => {
+          console.log("测试范围值传递的范围"+media_id);
           res.reply({
             type: "image",
             content: {
