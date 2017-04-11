@@ -32,7 +32,9 @@ router.post('/meetconfig', wechat(config, function (req, res, next) {
       if (message.Content === 'diaosi') {
         res.reply('hehe');
       } else if (message.Content === 'getUserList') {
-        if (finish_customer_create()) {
+        let c= finish_customer_create();
+        console.log(c);
+        if (c) {
           res.reply('保存成功');
         }
         else {
