@@ -39,8 +39,9 @@ router.post('/meetconfig', wechat(config, function (req, res, next) {
             for (var i in datas) {
               // console.log("i is:" + i);
               // console.log("data is:" + data[i]);
-              for (var f in datas[i]) {
-                console.log(f + "is:" + data[i][f]);
+              var infos = datas[i];
+              for (var f in infos) {
+                console.log(f + "is:" + infos[f]);
               }
 
             }
