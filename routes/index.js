@@ -78,7 +78,7 @@ router.post('/meetconfig', wechat(config, function (req, res, next) {
 
 
             gm(qr_path)
-              .resize(180, 180)
+              .resize(126, 126)
               .noProfile()
               .write(qr_path_out_resize, function (err) {
                 if (!err) console.log('done');
@@ -86,7 +86,7 @@ router.post('/meetconfig', wechat(config, function (req, res, next) {
 
                 gm(a_path)
                   .composite(qr_path_out_resize)
-                  .geometry('+185+95')
+                  .geometry('+130+67')
                   .write(qr_path_out, function (err) {
                     if (!err) console.log("Written composite image.");
 
