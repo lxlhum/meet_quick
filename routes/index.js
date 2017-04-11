@@ -34,16 +34,17 @@ router.post('/meetconfig', wechat(config, function (req, res, next) {
       } else if (message.Content === 'getUserList') {
 
         function getFollower() {
-          api.getFollowers(function (err, data, response) {
-            return new Promise((resolve, reject) => {
+          return new Promise((resolve, reject) => {
+            api.getFollowers(function (err, data, response) {
               resolve(data.data.openid);
             });
           });
         };
 
         function getBatchGetUsers(openids) {
-          api.batchGetUsers(openids, function (err, data, responses) {
-            return new Promise((resolve, reject) => {
+          return new Promise((resolve, reject) => {
+            resolve(data["user_info_list"]);
+            api.batchGetUsers(openids, function (err, data, responses) {
               resolve(data["user_info_list"]);
             });
           });
