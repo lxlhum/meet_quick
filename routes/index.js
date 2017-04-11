@@ -203,13 +203,16 @@ function customer_create(alldatas) {
 async function finish_customer_create() {
   try {
     let openids = await getFollower();
-    console.log(openids);
     let alldatas = await getBatchGetUsers(openids);
-    console.log(alldatas);
-    return await customer_create(alldatas);
+    let customer_create_success = await customer_create(alldatas);
+    return new Promise((resolve, reject) => {
+      resolve(customer_create_success);
+    });
   } catch (err) {
-    console.log(err);
-    return false;
+    console.log("try-catch:" + err);
+    return new Promise((resolve, reject) => {
+      resolve(false);
+    });
   }
 };
 
