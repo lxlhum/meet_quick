@@ -32,50 +32,83 @@ router.post('/meetconfig', wechat(config, function (req, res, next) {
       if (message.Content === 'diaosi') {
         res.reply('hehe');
       } else if (message.Content === 'getUserList') {
+
+        // async function getFollower() {
+        //   api.getFollowers(function (err, data, response) {
+        //     return new Promise((resolve, reject) => {
+        //       resolve(data.data.openid);
+        //     });
+        //   });
+        // };
+
+        // async function getBatchGetUsers() {
+        //   api.batchGetUsers(openids, function (err, data, responses) {
+        //     return new Promise((resolve, reject) => {
+        //       resolve(data["user_info_list"]);
+        //     });
+        //   });
+        // }
+
+        // async function customerSave(user_info_list_openid) {
+        //   var alldatas = {};
+        //   for (var i in datas) {
+        //     alldatas.push(datas[i]);
+        //   }
+        // }
+
+
         api.getFollowers(function (err, data, response) {
           console.log("err is:" + err);
           var openids = data.data.openid;
           api.batchGetUsers(openids, function (err, data, responses) {
 
-            var datas = data["user_info_list"];
-            for (var i in datas) {
-              // console.log("i is:" + i);
-              // console.log("data is:" + data[i]);
-              var infos = datas[i];
-              var customer = new Customer(infos);
-              customer.save(function (err, response) {
+            // var datas = data["user_info_list"];
+            var customer = new Customer(data["user_info_list"]);
+            customer.save(function (err, response) {
 
-                if (err) {
-                  console.log("保存失败" + err);
-                  res.reply('保存失败');
-                }
-                else {
-                  console.log("Res:" + response);
-                  res.reply('保存成功');
-                }
+              if (err) {
+                console.log("保存失败" + err);
+                res.reply('保存失败');
+              }
+              else {
+                console.log("Res:" + response);
+                res.reply('保存成功');
+              }
 
-              });
-              // for (var f in infos) {
-              //   console.log(f + " _is:" + infos[f]);
+            });
 
-
-              //   // subscribe _is: 1
-              //   // openid _is: oyjl4wvwlZ82blfpsVikQG8EeM0c
-              //   // nickname _is: 彭敏
-              //   // sex _is: 2
-              //   // language _is: zh_CN
-              //   // city _is: 东城
-              //   // province _is: 北京
-              //   // country _is: 中国
-              //   // headimgurl _is: http://wx.qlogo.cn/mmopen/Q3auHgzwzM7iay4jUamtajO2Sr2fdtRwY9lhib4LGdOTSmSepuV5hA86bAolgiaiajhZe61zbOQ0yG2JhJGbX4JKXg/0
-              //   // subscribe_time _is: 1489623821
-              //   // remark _is:
-              //   // groupid _is: 0
-              //   // tagid_list _is:
-
-              // }
-
-            }
+            // for (var i in datas) {
+            // console.log("i is:" + i);
+            // console.log("data is:" + data[i]);
+            // var infos = datas[i];
+            // var customer = new Customer(infos);
+            // customer.save(function (err, response) {
+            //   if (err) {
+            //     console.log("保存失败" + err);
+            //     res.reply('保存失败');
+            //   }
+            //   else {
+            //     console.log("Res:" + response);
+            //     res.reply('保存成功');
+            //   }
+            // });
+            // for (var f in infos) {
+            //   console.log(f + " _is:" + infos[f]);
+            //   // subscribe _is: 1
+            //   // openid _is: oyjl4wvwlZ82blfpsVikQG8EeM0c
+            //   // nickname _is: 彭敏
+            //   // sex _is: 2
+            //   // language _is: zh_CN
+            //   // city _is: 东城
+            //   // province _is: 北京
+            //   // country _is: 中国
+            //   // headimgurl _is: http://wx.qlogo.cn/mmopen/Q3auHgzwzM7iay4jUamtajO2Sr2fdtRwY9lhib4LGdOTSmSepuV5hA86bAolgiaiajhZe61zbOQ0yG2JhJGbX4JKXg/0
+            //   // subscribe_time _is: 1489623821
+            //   // remark _is:
+            //   // groupid _is: 0
+            //   // tagid_list _is:
+            // }
+            // }
           });
 
           // expect(err).not.to.be.ok();
