@@ -244,6 +244,12 @@ function getTmpQRCodeURL() {
 function downTmpQRCode(qr_path, qucodemedia) {
   var fileWriteStream = fs.createWriteStream(qr_path);
   request(qucodemedia).pipe(fileWriteStream);
+  return new Promise((resolve, reject) => {
+    fileWriteStream.on('close', function (err) {
+      console.log('copy over');
+    });
+    resolve("down");
+  });
 }
 
 function gmResize(qr_path, qr_path_out_resize) {
