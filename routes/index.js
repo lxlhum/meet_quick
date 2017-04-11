@@ -43,72 +43,96 @@ router.post('/meetconfig', wechat(config, function (req, res, next) {
         })
       }
       else if (message.Content === 'qr') {
-        api.createTmpQRCode("x", 100, function (err, data, response) {
-          console.log(data);
-          var path_wechat = "/home/userp/meet_quick/wechat/wechat_temp_qr/";
-          var qucodemedia = api.showQRCodeURL(data.ticket);
-          console.log("showQRCodeURL:" + qucodemedia);
-          var qr_path = path_wechat + message.FromUserName + message.CreateTime + '.png';
-          var a_path = path_wechat + 'a.jpg';
-          var b_path = path_wechat + 'b.jpg';
-          var c_path = path_wechat + 'c.png';
-          var qr_path_out_resize = path_wechat + message.FromUserName + message.CreateTime + '_out1.png';
-          var qr_path_out = path_wechat + message.FromUserName + message.CreateTime + '_out2.png';
 
-          //测试用
-          // var fileReadStream = fs.createReadStream(a_path);
+        var qr_path = config.path_wechat + message.FromUserName + message.CreateTime + '.png';
+        var a_path = config.path_wechat + 'a.jpg';
+        var b_path = config.path_wechat + 'b.jpg';
+        var c_path = config.path_wechat + 'c.png';
+        var qr_path_out_resize = config.path_wechat + message.FromUserName + message.CreateTime + '_out1.png';
+        var qr_path_out = config.path_wechat + message.FromUserName + message.CreateTime + '_out2.png';
 
-          var fileWriteStream = fs.createWriteStream(qr_path);
-          console.log("qr_path:" + qr_path);
-          request(qucodemedia).pipe(fileWriteStream);
-          // fileReadStream.pipe(fileWriteStream);
-          fileWriteStream.on('close', function () {
-            console.log('copy over');
-
-
-            gm(qr_path)
-              .resize(126, 126)
-              .noProfile()
-              .write(qr_path_out_resize, function (err) {
-                if (!err) console.log('done');
-
-
-                gm(a_path)
-                  .composite(qr_path_out_resize)
-                  .geometry('+130+67')
-                  .write(qr_path_out, function (err) {
-                    if (!err) console.log("Written composite image.");
-
-                    api.uploadMedia(qr_path_out, "image", function (err, result) {
-
-                      // gm(a_path)
-                      //   .resize(480, 240)
-                      //   .noProfile()
-                      //   .write(qr_path_out, function (err) {
-                      //     console.log(err);
-                      //     if (!err) console.log('done');
-                      //   });
-
-                      // gm(a_path)
-                      //   .composite(b_path)
-                      //   .geometry('+100+150')
-                      //   .write(qr_path_out, function (err) {
-                      //     if (!err) console.log("Written composite image.");
-                      //   });
-
-                      console.log("result:" + result);
-                      console.log("err:" + err);
-                      res.reply({
-                        type: "image",
-                        content: {
-                          mediaId: result.media_id
-                        }
-                      });
-                    });
-                  });
-              });
+        (async () => {
+          let tmpQRCodeURL = await getTmpQRCodeURL();
+          let getDownTmpQRCode = await downTmpQRCode(qr_path, tmpQRCodeURL);
+          await gmResize(qr_path, qr_path_out_resize);
+          await gmComposite(a_path, qr_path_out_resize, qr_path_out);
+          let media_id = await douploadMedia(qr_path_out);
+        })().then(() => {
+          res.reply({
+            type: "image",
+            content: {
+              mediaId: result.media_id
+            }
           });
-        });
+        }).catch(() => {
+          res.reply('获取二维码失败');
+        })
+
+        // api.createTmpQRCode("x", 100, function (err, data, response) {
+        //   console.log(data);
+        //   var qucodemedia = api.showQRCodeURL(data.ticket);
+        //   console.log("showQRCodeURL:" + qucodemedia);
+        //   var qr_path = config.path_wechat + message.FromUserName + message.CreateTime + '.png';
+        //   var a_path = config.path_wechat + 'a.jpg';
+        //   var b_path = config.path_wechat + 'b.jpg';
+        //   var c_path = config.path_wechat + 'c.png';
+        //   var qr_path_out_resize = config.path_wechat + message.FromUserName + message.CreateTime + '_out1.png';
+        //   var qr_path_out = config.path_wechat + message.FromUserName + message.CreateTime + '_out2.png';
+
+        //   //测试用
+        //   // var fileReadStream = fs.createReadStream(a_path);
+
+        //   var fileWriteStream = fs.createWriteStream(qr_path);
+        //   console.log("qr_path:" + qr_path);
+        //   request(qucodemedia).pipe(fileWriteStream);
+        //   // fileReadStream.pipe(fileWriteStream);
+        //   fileWriteStream.on('close', function () {
+        //     console.log('copy over');
+
+
+        //     gm(qr_path)
+        //       .resize(126, 126)
+        //       .noProfile()
+        //       .write(qr_path_out_resize, function (err) {
+        //         if (!err) console.log('done');
+
+
+        //         gm(a_path)
+        //           .composite(qr_path_out_resize)
+        //           .geometry('+130+67')
+        //           .write(qr_path_out, function (err) {
+        //             if (!err) console.log("Written composite image.");
+
+        //             api.uploadMedia(qr_path_out, "image", function (err, result) {
+
+        //               // gm(a_path)
+        //               //   .resize(480, 240)
+        //               //   .noProfile()
+        //               //   .write(qr_path_out, function (err) {
+        //               //     console.log(err);
+        //               //     if (!err) console.log('done');
+        //               //   });
+
+        //               // gm(a_path)
+        //               //   .composite(b_path)
+        //               //   .geometry('+100+150')
+        //               //   .write(qr_path_out, function (err) {
+        //               //     if (!err) console.log("Written composite image.");
+        //               //   });
+
+        //               console.log("result:" + result);
+        //               console.log("err:" + err);
+        //               res.reply({
+        //                 type: "image",
+        //                 content: {
+        //                   mediaId: result.media_id
+        //                 }
+        //               });
+        //             });
+        //           });
+        //       });
+        //   });
+        // });
       }
       else if (message.Content === 'hehe') {
         // 回复音乐
@@ -200,5 +224,76 @@ function customer_create(alldatas) {
     });
   });
 }
+
+function getTmpQRCodeURL() {
+  return new Promise((resolve, reject) => {
+    api.createTmpQRCode("x", 100, function (err, data, response) {
+      if (err) {
+        console.log("获取二维码信息失败:" + err);
+        reject(err);
+      }
+      else {
+        let qucodemedia = api.showQRCodeURL(data.ticket);
+        console.log("showQRCodeURL:" + qucodemedia);
+        resolve(qucodemedia);
+      }
+    });
+  })
+}
+
+function downTmpQRCode(qr_path, qucodemedia) {
+  var fileWriteStream = fs.createWriteStream(qr_path);
+  request(qucodemedia).pipe(fileWriteStream);
+}
+
+function gmResize(qr_path, qr_path_out_resize) {
+  return new Promise((resolve, reject) => {
+    gm(qr_path)
+      .resize(126, 126)
+      .noProfile()
+      .write(qr_path_out_resize, function (err) {
+        if (err) {
+          console.log("图片裁剪失败:" + err);
+          reject(err);
+        }
+        else {
+          console.log("图片裁剪成功");
+        }
+      });
+  })
+}
+
+function gmComposite(a_path, qr_path_out_resize, qr_path_out) {
+  return new Promise((resolve, reject) => {
+    gm(a_path)
+      .composite(qr_path_out_resize)
+      .geometry('+130+67')
+      .write(qr_path_out, function (err) {
+        if (err) {
+          console.log("图片合成失败:" + err);
+          reject(err);
+        }
+        else {
+          console.log("图片合成成功");
+        }
+      });
+  })
+}
+
+function douploadMedia(qr_path_out) {
+  return new Promise((resolve, reject) => {
+    api.uploadMedia(qr_path_out, "image", function (err, result) {
+      if (err) {
+        console.log("图片上传失败:" + err);
+        reject(err);
+      }
+      else {
+        console.log("图片上传成功:");
+        resolve(result.media_id);
+      }
+    });
+  })
+}
+
 
 module.exports = router;
