@@ -65,7 +65,9 @@ exports.tempAddUser = function (req, res, next) {
         username: hashedUsername,
         password: hashedPassword,
         lastlogintime: new Date()
-    });
+    },{username: hashedUsername,
+        password: hashedPassword,
+        lastlogintime: new Date()});
     user.save(function (err, response) {
 
         if (err) {

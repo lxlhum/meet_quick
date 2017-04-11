@@ -79,12 +79,15 @@ router.post('/meetconfig', wechat(config, function (req, res, next) {
 
             for (var i in datas) {
               console.log("i is:" + i);
-              console.log("data is:" + data[i]);
+              console.log("data is:" + datas[i]);
               var infos = datas[i];
               user_info_listall.push(infos);
               // console.log(user_info_listall);
             }
-            var customer = new Customer(user_info_listall);
+            user_info_listall = user_info_listall.replace("[",);
+            user_info_listall = user_info_listall.replace("]",);
+            // var customer = new Customer(user_info_listall);
+            // var customer = new Customer();
             customer.save(function (err, response) {
               if (err) {
                 console.log("保存失败" + err);
