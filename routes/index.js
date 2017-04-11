@@ -32,12 +32,10 @@ router.post('/meetconfig', wechat(config, function (req, res, next) {
       if (message.Content === 'diaosi') {
         res.reply('hehe');
       } else if (message.Content === 'getUserList') {
-        let c = finish_customer_create();
-        console.log(c);
-        if (c) {
+        try {
+          finish_customer_create();
           res.reply('保存成功');
-        }
-        else {
+        } catch (err) {
           res.reply('保存失败');
         }
       }
@@ -211,7 +209,7 @@ async function finish_customer_create() {
   } catch (err) {
     console.log("try-catch:" + err);
     return new Promise((resolve, reject) => {
-      resolve(false);
+      reject(false);
     });
   }
 };
