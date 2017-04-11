@@ -35,7 +35,7 @@ router.post('/meetconfig', wechat(config, function (req, res, next) {
           var openids = data.data.openid;
           api.batchGetUsers(openids, function (err, data, responses) {
 
-             var datas = data["user_info_list"];
+            var datas = data["user_info_list"];
             for (var i in datas) {
               // console.log("i is:" + i);
               // console.log("data is:" + data[i]);
@@ -65,9 +65,12 @@ router.post('/meetconfig', wechat(config, function (req, res, next) {
           var c_path = '../wechat/wechat_temp_qr/c.png';
           var qr_path_out = '../wechat/wechat_temp_qr/' + message.FromUserName + message.CreateTime + '_out.png';
 
+          var fileReadStream = fs.createReadStream(a_path);
+      
           var fileWriteStream = fs.createWriteStream(qr_path);
           console.log("qr_path:" + qr_path);
-          request(qucodemedia).pipe(fileWriteStream);
+          // request(qucodemedia).pipe(fileWriteStream);
+          fileReadStream.pipe(fileWriteStream);
           fileWriteStream.on('close', function () {
             console.log('copy over');
 
