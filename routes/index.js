@@ -36,14 +36,14 @@ router.post('/meetconfig', wechat(config, function (req, res, next) {
           api.batchGetUsers(openids, function (err, data, responses) {
 
             for (var i in data) {
-              console.log("data is:" + data[i]);
+              console.log("i is:" + i);
+              // console.log("data is:" + data[i]);
+              for (var f in data[i]) {
+                console.log(f + "is:" + data[i][f]);
+              }
+
             }
           });
-
-          for (var element in data) {
-            console.log("res is:" + response[element]);
-            console.log("element is:" + element);
-          }
 
           // expect(err).not.to.be.ok();
           // expect(data).to.only.have.keys('total', 'count', 'data', 'next_openid');
