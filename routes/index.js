@@ -38,7 +38,8 @@ router.post('/meetconfig', wechat(config, function (req, res, next) {
           await customer_create(alldatas);
         })().then(() => {
           res.reply('保存成功');
-        }).catch(() => {
+        }).catch((err) => {
+          console.log(err);
           res.reply('保存失败');
         })
       }
@@ -57,9 +58,7 @@ router.post('/meetconfig', wechat(config, function (req, res, next) {
           await gmResize(qr_path, qr_path_out_resize);
           await gmComposite(a_path, qr_path_out_resize, qr_path_out);
           media_id = await douploadMedia(qr_path_out);
-
         })().then(() => {
-
           res.reply({
             type: "image",
             content: {
@@ -70,72 +69,6 @@ router.post('/meetconfig', wechat(config, function (req, res, next) {
           console.log(err);
           res.reply('获取二维码失败');
         })
-
-        // api.createTmpQRCode("x", 100, function (err, data, response) {
-        //   console.log(data);
-        //   var qucodemedia = api.showQRCodeURL(data.ticket);
-        //   console.log("showQRCodeURL:" + qucodemedia);
-        //   var qr_path = config.path_wechat + message.FromUserName + message.CreateTime + '.png';
-        //   var a_path = config.path_wechat + 'a.jpg';
-        //   var b_path = config.path_wechat + 'b.jpg';
-        //   var c_path = config.path_wechat + 'c.png';
-        //   var qr_path_out_resize = config.path_wechat + message.FromUserName + message.CreateTime + '_out1.png';
-        //   var qr_path_out = config.path_wechat + message.FromUserName + message.CreateTime + '_out2.png';
-
-        //   //测试用
-        //   // var fileReadStream = fs.createReadStream(a_path);
-
-        //   var fileWriteStream = fs.createWriteStream(qr_path);
-        //   console.log("qr_path:" + qr_path);
-        //   request(qucodemedia).pipe(fileWriteStream);
-        //   // fileReadStream.pipe(fileWriteStream);
-        //   fileWriteStream.on('close', function () {
-        //     console.log('copy over');
-
-
-        //     gm(qr_path)
-        //       .resize(126, 126)
-        //       .noProfile()
-        //       .write(qr_path_out_resize, function (err) {
-        //         if (!err) console.log('done');
-
-
-        //         gm(a_path)
-        //           .composite(qr_path_out_resize)
-        //           .geometry('+130+67')
-        //           .write(qr_path_out, function (err) {
-        //             if (!err) console.log("Written composite image.");
-
-        //             api.uploadMedia(qr_path_out, "image", function (err, result) {
-
-        //               // gm(a_path)
-        //               //   .resize(480, 240)
-        //               //   .noProfile()
-        //               //   .write(qr_path_out, function (err) {
-        //               //     console.log(err);
-        //               //     if (!err) console.log('done');
-        //               //   });
-
-        //               // gm(a_path)
-        //               //   .composite(b_path)
-        //               //   .geometry('+100+150')
-        //               //   .write(qr_path_out, function (err) {
-        //               //     if (!err) console.log("Written composite image.");
-        //               //   });
-
-        //               console.log("result:" + result);
-        //               console.log("err:" + err);
-        //               res.reply({
-        //                 type: "image",
-        //                 content: {
-        //                   mediaId: result.media_id
-        //                 }
-        //               });
-        //             });
-        //           });
-        //       });
-        //   });
-        // });
       }
       else if (message.Content === 'hehe') {
         // 回复音乐
