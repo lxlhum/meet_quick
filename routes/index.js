@@ -89,7 +89,7 @@ router.post('/meetconfig', wechat(config, function (req, res, next) {
             // var customer = new Customer(user_info_listall);
             // var customer = new Customer();
 
-            Customer.creat(user_info_listall,function (err, jellybean, snickers) {
+            Customer.create(user_info_listall,function (err, jellybean, snickers) {
               if (err) {
                 console.log("保存失败" + err);
                 res.reply('保存失败');
