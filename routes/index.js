@@ -32,12 +32,11 @@ router.post('/meetconfig', wechat(config, function (req, res, next) {
       if (message.Content === 'diaosi') {
         res.reply('hehe');
       } else if (message.Content === 'getUserList') {
-        try {
-          finish_customer_create();
+        finish_customer_create().then(() => {
           res.reply('保存成功');
-        } catch (err) {
+        }).catch(() => {
           res.reply('保存失败');
-        }
+        })
       }
       else if (message.Content === 'qr') {
         api.createTmpQRCode("x", 100, function (err, data, response) {
