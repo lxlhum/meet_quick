@@ -50,16 +50,16 @@ router.post('/meetconfig', wechat(config, function (req, res, next) {
         var c_path = config.path_wechat + 'c.png';
         var qr_path_out_resize = config.path_wechat + message.FromUserName + message.CreateTime + '_out1.png';
         var qr_path_out = config.path_wechat + message.FromUserName + message.CreateTime + '_out2.png';
-
+        var media_id = "";
         (async () => {
           let tmpQRCodeURL = await getTmpQRCodeURL();
           await downTmpQRCode(qr_path, tmpQRCodeURL);
           await gmResize(qr_path, qr_path_out_resize);
           await gmComposite(a_path, qr_path_out_resize, qr_path_out);
-          var media_id = await douploadMedia(qr_path_out);
-          
+          media_id = await douploadMedia(qr_path_out);
+
         })().then(() => {
-          
+
           res.reply({
             type: "image",
             content: {
@@ -305,7 +305,7 @@ function douploadMedia(qr_path_out) {
         reject(err);
       }
       else {
-        console.log("图片上传成功:"+result.media_id);
+        console.log("图片上传成功:" + result.media_id);
         resolve(result.media_id);
       }
     });
