@@ -33,7 +33,7 @@ router.post('/meetconfig', wechat(config, function (req, res, next) {
         res.reply('hehe');
       } else if (message.Content === 'getUserList') {
 
-        async function getFollower() {
+        function getFollower() {
           api.getFollowers(function (err, data, response) {
             return new Promise((resolve, reject) => {
               resolve(data.data.openid);
@@ -41,7 +41,7 @@ router.post('/meetconfig', wechat(config, function (req, res, next) {
           });
         };
 
-        async function getBatchGetUsers(openids) {
+        function getBatchGetUsers(openids) {
           api.batchGetUsers(openids, function (err, data, responses) {
             return new Promise((resolve, reject) => {
               resolve(data["user_info_list"]);
@@ -49,8 +49,10 @@ router.post('/meetconfig', wechat(config, function (req, res, next) {
           });
         };
 
-        async function customerSave(alldatas) {
-          Customer.create(data["user_info_list"], function (err, jellybean, snickers) {
+        async function test() {
+          let openids = await getFollower();
+          let alldatas = await getBatchGetUsers(openids);
+          Customer.create(alldatas, function (err, jellybean, snickers) {
             if (err) {
               console.log("保存失败" + err);
               res.reply('保存失败');
@@ -61,12 +63,7 @@ router.post('/meetconfig', wechat(config, function (req, res, next) {
               res.reply('保存成功');
             }
           });
-        };
-
-        let openids = await getFollower();
-        let alldatas = await getFollower(openids);
-        await getFollower(alldatas);
-
+        }
 
         // api.getFollowers(function (err, data, response) {
         //   console.log("err is:" + err);
