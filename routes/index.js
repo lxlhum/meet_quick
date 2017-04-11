@@ -35,10 +35,11 @@ router.post('/meetconfig', wechat(config, function (req, res, next) {
           var openids = data.data.openid;
           api.batchGetUsers(openids, function (err, data, responses) {
 
-            for (var i in data) {
-              console.log("i is:" + i);
+             var datas = data["user_info_list"];
+            for (var i in datas) {
+              // console.log("i is:" + i);
               // console.log("data is:" + data[i]);
-              for (var f in data[i]) {
+              for (var f in datas[i]) {
                 console.log(f + "is:" + data[i][f]);
               }
 
