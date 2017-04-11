@@ -33,23 +33,35 @@ router.post('/meetconfig', wechat(config, function (req, res, next) {
         res.reply('hehe');
       } else if (message.Content === 'getUserList') {
 
+        // function getFollower() {
+        //   return new Promise((resolve, reject) => {
+        //     api.getFollowers(function (err, data, response) {
+        //       resolve(data.data.openid);
+        //     });
+        //   });
+        // };
+
+        // function getBatchGetUsers(openids) {
+        //   return new Promise((resolve, reject) => {
+        //     api.batchGetUsers(openids, function (err, data, responses) {
+        //       resolve(data["user_info_list"]);
+        //     });
+        //   });
+        // };
+
         function getFollower() {
-          return new Promise((resolve, reject) => {
-            api.getFollowers(function (err, data, response) {
-              resolve(data.data.openid);
-            });
+          api.getFollowers(function (err, data, response) {
+            return data.data.openid;
           });
         };
 
         function getBatchGetUsers(openids) {
-          return new Promise((resolve, reject) => {
-            api.batchGetUsers(openids, function (err, data, responses) {
-              resolve(data["user_info_list"]);
-            });
+          api.batchGetUsers(openids, function (err, data, responses) {
+            return data["user_info_list"];
           });
         };
 
-        async function test() {
+        async function customer_create() {
           let openids = await getFollower();
           let alldatas = await getBatchGetUsers(openids);
           Customer.create(alldatas, function (err, jellybean, snickers) {
@@ -64,7 +76,7 @@ router.post('/meetconfig', wechat(config, function (req, res, next) {
             }
           });
         }
-        test();
+        customer_create();
         // api.getFollowers(function (err, data, response) {
         //   console.log("err is:" + err);
         //   var openids = data.data.openid;
