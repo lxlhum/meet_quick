@@ -15,9 +15,8 @@ var PageQuery = async (page, pageSize, Model, populate, queryParams, sortParams)
     };
 
     let count = await ModelCount(Model, queryParams);
-    console.log("查询count:" + count);
     let records = await PageRecords(Model, queryParams, start, pageSize, populate, sortParams);
-    console.log("查询records:" + records);
+    
     $page.pageCount = (count - 1) / pageSize + 1;
     $page.results = records;
     return $page;
@@ -27,7 +26,7 @@ var ModelCount = (Model, queryParams) => {
     return Model.count(queryParams).exec().then((count) => {
         return count;
     }).catch((err) => {
-        console.log("查询失败:" + err);
+        console.log("err:" + err);
         return err;
     });
 }
@@ -36,7 +35,7 @@ var PageRecords = (Model, queryParams, start, pageSize, populate, sortParams) =>
     return Model.find(queryParams).skip(start).limit(pageSize).populate(populate).sort(sortParams).exec().then((doc) => {
         return doc;
     }).catch((err) => {
-        console.log("查询失败:" + err);
+        console.log("err:" + err);
         return err;
     });
 }
