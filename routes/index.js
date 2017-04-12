@@ -29,70 +29,71 @@ router.post('/meetconfig', wechat(config, function (req, res, next) {
 
   switch (message.MsgType) {
     case "text": {
-      if (message.Content === 'diaosi') {
-        res.reply('hehe');
-      } else if (message.Content === 'getUserList') {
-        (async () => {
-          let openids = await getFollower();
-          let alldatas = await getBatchGetUsers(openids);
-          await customer_create(alldatas);
-        })().then(() => {
-          res.reply('保存成功');
-        }).catch((err) => {
-          console.log(err);
-          res.reply('保存失败');
-        })
-      }
-      else if (message.Content === 'qr') {
+      switch (message.Content) {
+        case "diaosi": {
+          res.reply('hehe');
+        }; break;
+        case "getUserList": {
+          (async () => {
+            let openids = await getFollower();
+            let alldatas = await getBatchGetUsers(openids);
+            await customer_create(alldatas);
+          })().then(() => {
+            res.reply('保存成功');
+          }).catch((err) => {
+            console.log(err);
+            res.reply('保存失败');
+          })
+        }; break;
+        case "qr": {
 
-        var qr_path = config.path_wechat + message.FromUserName + message.CreateTime + '.png';
-        var a_path = config.path_wechat + 'a.jpg';
-        var b_path = config.path_wechat + 'b.jpg';
-        var c_path = config.path_wechat + 'c.png';
-        var qr_path_out_resize = config.path_wechat + message.FromUserName + message.CreateTime + '_out1.png';
-        var qr_path_out = config.path_wechat + message.FromUserName + message.CreateTime + '_out2.png';
-        var media_id = "";
-        (async () => {
-          let tmpQRCodeURL = await getTmpQRCodeURL();
-          await downTmpQRCode(qr_path, tmpQRCodeURL);
-          await gmResize(qr_path, qr_path_out_resize);
-          await gmComposite(a_path, qr_path_out_resize, qr_path_out);
-          media_id = await douploadMedia(qr_path_out);
-        })().then(() => {
+          var qr_path = config.path_wechat + message.FromUserName + message.CreateTime + '.png';
+          var a_path = config.path_wechat + 'a.jpg';
+          var b_path = config.path_wechat + 'b.jpg';
+          var c_path = config.path_wechat + 'c.png';
+          var qr_path_out_resize = config.path_wechat + message.FromUserName + message.CreateTime + '_out1.png';
+          var qr_path_out = config.path_wechat + message.FromUserName + message.CreateTime + '_out2.png';
+          var media_id = "";
+          (async () => {
+            let tmpQRCodeURL = await getTmpQRCodeURL();
+            await downTmpQRCode(qr_path, tmpQRCodeURL);
+            await gmResize(qr_path, qr_path_out_resize);
+            await gmComposite(a_path, qr_path_out_resize, qr_path_out);
+            media_id = await douploadMedia(qr_path_out);
+          })().then(() => {
+            res.reply({
+              type: "image",
+              content: {
+                mediaId: media_id
+              }
+            });
+          }).catch((err) => {
+            console.log(err);
+            res.reply('获取二维码失败');
+          })
+        }; break;
+        case "hehe": {
           res.reply({
-            type: "image",
+            type: "music",
             content: {
-              mediaId: media_id
+              title: "来段音乐吧",
+              description: "一无所有",
+              musicUrl: "http://mp3.com/xx.mp3",
+              hqMusicUrl: "http://mp3.com/xx.mp3",
+              thumbMediaId: "thisThumbMediaId"
             }
           });
-        }).catch((err) => {
-          console.log(err);
-          res.reply('获取二维码失败');
-        })
-      }
-      else if (message.Content === 'hehe') {
-        // 回复音乐
-        res.reply({
-          type: "music",
-          content: {
-            title: "来段音乐吧",
-            description: "一无所有",
-            musicUrl: "http://mp3.com/xx.mp3",
-            hqMusicUrl: "http://mp3.com/xx.mp3",
-            thumbMediaId: "thisThumbMediaId"
-          }
-        });
-      }
-      else {
-        //图文回复
-        res.reply([
-          {
-            title: 'meet_test_shell',
-            description: 'meet_test_shell',
-            picurl: 'http://nodeapi.cloudfoundry.com/qrcode.jpg',
-            url: 'http://www.yangtz.com'
-          }
-        ]);
+        } break;
+        default: {
+          res.reply([
+            {
+              title: 'meet_test_shell',
+              description: 'meet_test_shell',
+              picurl: 'http://nodeapi.cloudfoundry.com/qrcode.jpg',
+              url: 'http://www.yangtz.com'
+            }
+          ]);
+        }
       }
     }; break;
     case "event": {
@@ -244,6 +245,5 @@ function douploadMedia(qr_path_out) {
     });
   })
 }
-
 
 module.exports = router;
