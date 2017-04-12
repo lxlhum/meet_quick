@@ -26,7 +26,7 @@ exports.customersList = function (req, res, next) {
     // })
     try {
         console.log("开始执行");
-        var page = Customer.PageQuery(1, 3, Customer.Model, "", {}, {});
+        var pageResult = Customer.PageQuery(1, 3, Customer.Model, "", {}, {});
     } catch (err) {
         console.log(err);
     }
@@ -34,7 +34,7 @@ exports.customersList = function (req, res, next) {
     res.render('customersList', {
         layout: "admin",
         title: '米特学堂后台管理系统',
-        customersList: {}
+        customersList: pageResult
     });
 
 }
