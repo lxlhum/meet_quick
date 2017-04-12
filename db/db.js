@@ -1,6 +1,6 @@
 var mongoose = require('mongoose');
 var config = require('../profile.json');
-
+mongoose.Promise = global.Promise;
 mongoose.connect(config.db_conection);
 
 mongoose.connection.on('connected', function () {    

@@ -24,17 +24,15 @@ exports.customersList = function (req, res, next) {
     //         });
     //     }
     // })
-    try {
-        console.log("开始执行");
-        var pageResult = Customer.PageQuery(1, 3, Customer.Model, "", {}, {});
-    } catch (err) {
-        console.log(err);
-    }
 
-    res.render('customersList', {
-        layout: "admin",
-        title: '米特学堂后台管理系统',
-        customersList: pageResult
+    Customer.PageQuery(1, 3, Customer.Model, "", {}, {}).then((pageResult) => {
+        res.render('customersList', {
+            layout: "admin",
+            title: '米特学堂后台管理系统',
+            customersList: pageResult
+        });
+    }).catch((err) => {
+        console.log("查询失败:" + err);
+        res.send("失败");
     });
-
 }
