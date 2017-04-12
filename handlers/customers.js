@@ -16,7 +16,7 @@ exports.customersList = function (req, res, next) {
             res.send('查询失败' + err);
         }
         else {
-            console.log("Res:" + res);
+            console.log("Res:" + response);
             res.render('customersList', { layout: "admin", title: '米特学堂后台管理系统' });
         }
     })
