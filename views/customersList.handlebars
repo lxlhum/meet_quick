@@ -1,0 +1,71 @@
+<!-- main container -->
+<div class="content">
+
+    <!-- settings changer -->
+    {{!
+    <div class="skins-nav">
+        <a href="#" class="skin first_nav selected">
+            <span class="icon"></span><span class="text">Default skin</span>
+        </a>
+        <a href="#" class="skin second_nav" data-file="css/skins/dark.css">
+            <span class="icon"></span><span class="text">Dark skin</span>
+        </a>
+    </div>}}
+
+    <div class="container-fluid">
+
+        <!-- upper main stats -->
+        <div id="main-stats">
+            <div class="row-fluid stats-row">
+                <div class="span3 stat">
+                    <div class="data">
+                        <span class="number">2457</span> 新增客户
+                    </div>
+                    <span class="date">每日</span>
+                </div>
+                <div class="span3 stat">
+                    <div class="data">
+                        <span class="number">3240</span> 用户总数
+                    </div>
+                    <span class="date">截止到今天</span>
+                </div>
+                <div class="span3 stat">
+                    <div class="data">
+                        <span class="number">322</span> 订单总数
+                    </div>
+                    <span class="date">本周</span>
+                </div>
+                <div class="span3 stat last">
+                    <div class="data">
+                        <span class="number">$2,340</span> 销售
+                    </div>
+                    <span class="date">最近30天的销售业绩</span>
+                </div>
+            </div>
+        </div>
+        <!-- end upper main stats -->
+
+        <div id="pad-wrapper">
+
+            <!-- statistics chart built with jQuery Flot -->
+            <div class="row-fluid chart">
+                <h4>
+                    每日订单业绩
+                    <div class="btn-group pull-right">
+                        <button class="glow left">日</button>
+                        <button class="glow middle active">月</button>
+                        <button class="glow right">年</button>
+                    </div>
+                </h4>
+                <div class="span12">
+                    <div id="statsChart"></div>
+                </div>
+            </div>
+            <!-- end statistics chart -->
+
+           
+
+            
+        </div>
+    </div>
+</div>

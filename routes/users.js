@@ -5,6 +5,7 @@ var router = express.Router();
 var Accounts = require(config.models_factary)("account");
 var main = require(config.main_mp2);
 var login = require(config.login_mp);
+var customer = require(config.customer_mp);
 
 router.get('/', main.authorize_session_only_username, login.loginface);
 router.post('/login:id', login.loginAction);
@@ -15,6 +16,8 @@ router.get('/admin', main.authorize_session_only_username, function (req, res, n
 });
 
 router.get('/putuser', login.tempAddUser);
+router.get('/customersList', customer.customersList);
+
 
 
 router.get('/getuser', function (req, res, next) {
