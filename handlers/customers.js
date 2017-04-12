@@ -26,10 +26,11 @@ exports.customersList = function (req, res, next) {
     // })
 
     Customer.PageQuery(1, 3, Customer.Model, "", {}, {}).then((pageResult) => {
+
         res.render('customersList', {
             layout: "admin",
             title: '米特学堂后台管理系统',
-            customersList: pageResult
+            customersList: pageResult.results
         });
     }).catch((err) => {
         console.log("查询失败:" + err);
