@@ -24,30 +24,20 @@ var PageQuery = async (page, pageSize, Model, populate, queryParams, sortParams)
 };
 
 var ModelCount = (Model, queryParams) => {
-    return new Promise((resolve, reject) => {
-        Model.count(queryParams).exec(function (err, count) {
-            if (err) {
-                console.log("查询失败:" + err);
-                reject(err);
-            }
-            else {
-                resolve(count);
-            }
-        });
+    return Model.count(queryParams).exec().then((count) => {
+        return count;
+    }).catch((err) => {
+        console.log("查询失败:" + err);
+        return err;
     });
 }
 
 var PageRecords = (Model, queryParams, start, pageSize, populate, sortParams) => {
-    return new Promise((resolve, reject) => {
-        Model.find(queryParams).skip(start).limit(pageSize).populate(populate).sort(sortParams).exec(function (err, doc) {
-            if (err) {
-                console.log("查询失败:" + err);
-                reject(err);
-            }
-            else {
-                resolve(doc);
-            }
-        });
+    return Model.find(queryParams).skip(start).limit(pageSize).populate(populate).sort(sortParams).exec().then((doc) => {
+        return doc;
+    }).catch((err) => {
+        console.log("查询失败:" + err);
+        return err;
     });
 }
 
