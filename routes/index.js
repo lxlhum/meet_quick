@@ -17,7 +17,7 @@ router.get('/', function (req, res, next) {
   res.render('index', { title: 'Express' });
 });
 
-var Customer = require(config.models_factary)("customer");
+var Customer = require(config.CustomerModel);
 
 router.get('/meetconfig', wechat(config, function (req, res, next) { }));
 router.post('/meetconfig', wechat(config, function (req, res, next) {
