@@ -18,7 +18,7 @@ var PageQuery = async (page, pageSize, Model, populate, queryParams, sortParams)
     let records = await PageRecords(Model, queryParams, start, pageSize, populate, sortParams);
 
     $page.pageCount = (count - 1) / pageSize + 1;
-    $page.results = results.records;
+    $page.results = records;
 
     return $page;
 };
@@ -54,6 +54,6 @@ var PageRecords = (Model, queryParams, start, pageSize, populate, sortParams) =>
 module.exports = (ModelName) => {
     return {
         Model: Model(ModelName),
-        Page: PageQuery
+        PageQuery: PageQuery
     }
 };

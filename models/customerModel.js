@@ -3,5 +3,5 @@ var CustomerModel = require(config.models_factary)("customer");
 
 module.exports = {
     Model:CustomerModel.Model,
-    Page:CustomerModel.PageQuery
+    PageQuery:CustomerModel.PageQuery
 };
