@@ -61,17 +61,23 @@
                 <table class="table table-hover">
                     <thead>
                         <tr>
-                            <th class="span4 sortable">
+                            <th class="span3 sortable">
                                 昵称
                             </th>
-                            <th class="span3 sortable">
-                                <span class="line"></span>Signed up
+                            <th class="span2 sortable">
+                                <span class="line"></span>电话
                             </th>
                             <th class="span2 sortable">
-                                <span class="line"></span>Total spent
+                                <span class="line"></span>区域
                             </th>
-                            <th class="span3 sortable align-right">
-                                <span class="line"></span>Email
+                            <th class="span2 sortable">
+                                <span class="line"></span>邮箱
+                            </th>
+                            <th class="span2 sortable">
+                                <span class="line"></span>孩子
+                            </th>
+                            <th class="span2 sortable align-right">
+                                <span class="line"></span>来源
                             </th>
                         </tr>
                     </thead>
@@ -85,10 +91,16 @@
                                 <span class="subtext">{{sex}}</span>
                             </td>
                             <td>
-                                {{country}}
+                                {{phone_no}}
                             </td>
                             <td>
                                 {{province}}
+                            </td>
+                            <td>
+                                {{email}}
+                            </td>
+                            <td>
+                                {{children}}
                             </td>
                             <td class="align-right">
                                 <a href="#">{{groupid}}</a>
@@ -114,28 +126,27 @@
     </div>
 </div>
 <!-- end main container -->
-{{#section 'css'}} 
+{{#section 'css'}}
 <!-- bootstrap -->
-    <link href="../stylesheets/bootstrap/bootstrap.css" rel="stylesheet" />
-    <link href="../stylesheetscss/bootstrap/bootstrap-responsive.css" rel="stylesheet" />
-    <link href="../stylesheets/bootstrap/bootstrap-overrides.css" type="text/css" rel="stylesheet" />
+<link href="../stylesheets/bootstrap/bootstrap.css" rel="stylesheet" />
+<link href="../stylesheetscss/bootstrap/bootstrap-responsive.css" rel="stylesheet" />
+<link href="../stylesheets/bootstrap/bootstrap-overrides.css" type="text/css" rel="stylesheet" />
 
-    <!-- global styles -->
-    <link rel="stylesheet" type="text/css" href="../stylesheets/layout.css" />
-    <link rel="stylesheet" type="text/css" href="../stylesheets/elements.css" />
-    <link rel="stylesheet" type="text/css" href="../stylesheets/icons.css" />
+<!-- global styles -->
+<link rel="stylesheet" type="text/css" href="../stylesheets/layout.css" />
+<link rel="stylesheet" type="text/css" href="../stylesheets/elements.css" />
+<link rel="stylesheet" type="text/css" href="../stylesheets/icons.css" />
 
-    <!-- libraries -->
-    <link href="../stylesheets/lib/font-awesome.css" type="text/css" rel="stylesheet" />
-    
-    <!-- this page specific styles -->
-    <link rel="stylesheet" href="../stylesheets/compiled/user-list.css" type="text/css" media="screen" />    
+<!-- libraries -->
+<link href="../stylesheets/lib/font-awesome.css" type="text/css" rel="stylesheet" />
 
-    <!--[if lt IE 9]>
+<!-- this page specific styles -->
+<link rel="stylesheet" href="../stylesheets/compiled/user-list.css" type="text/css" media="screen" />
+
+<!--[if lt IE 9]>
       <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
-{{/section}} 
-{{#section 'javascriptlib'}}
+{{/section}} {{#section 'javascriptlib'}}
 <script src="../javascripts/jquery-latest.js"></script>
 <script src="../javascripts/bootstrap.min.js"></script>
 <script src="../javascripts/theme.js"></script>
