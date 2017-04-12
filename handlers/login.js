@@ -67,20 +67,20 @@ exports.tempAddUser = function (req, res, next) {
         lastlogintime: new Date()
     }, {
         username: hashedUsername,
-            password: hashedPassword,
-            lastlogintime: new Date()
-        }]);
-user.save(function (err, response) {
+        password: hashedPassword,
+        lastlogintime: new Date()
+    }]);
+    user.save(function (err, response) {
 
-    if (err) {
-        console.log("保存失败" + err);
-        res.send('保存失败');
-    }
-    else {
-        console.log("Res:" + response);
-        res.send('保存成功');
-    }
+        if (err) {
+            console.log("保存失败" + err);
+            res.send('保存失败');
+        }
+        else {
+            console.log("Res:" + response);
+            res.send('保存成功');
+        }
 
-});
+    });
 
 }
