@@ -2,7 +2,6 @@ var crypto = require('crypto');
 var config = require('../profile.json');
 var User = require(config.UserModel);
 
-
 exports.loginface = function (req, res, next) {
     // res.render('login', { layout: "login", title: '米特学堂后台管理系统' });
     res.render('admin', { layout: "admin", title: '米特学堂后台管理系统' });
@@ -22,8 +21,7 @@ exports.loginAction = function (req, res, next) {
     shaSum_password.update(password);
     var hashedPassword = shaSum_password.digest('hex');
     console.log(hashedPassword);
-
-    User.findOne({ "username": hashedUsername, "password": hashedPassword }, function (err, doc) {
+    User.Model.findOne({ "username": hashedUsername, "password": hashedPassword }, function (err, doc) {
         var exists = !!doc;
         if (exists) {
 
@@ -61,15 +59,11 @@ exports.tempAddUser = function (req, res, next) {
     var hashedPassword = shaSum_password.digest('hex');
     console.log(hashedPassword);
 
-    var user = new User([{
+    var user = new User.Model({
         username: hashedUsername,
         password: hashedPassword,
         lastlogintime: new Date()
-    }, {
-        username: hashedUsername,
-        password: hashedPassword,
-        lastlogintime: new Date()
-    }]);
+    });
     user.save(function (err, response) {
 
         if (err) {

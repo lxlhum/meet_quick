@@ -2,7 +2,7 @@ var express = require('express');
 var config = require('../profile.json');
 var router = express.Router();
 
-var Accounts = require(config.models_factary)("account");
+// var Accounts = require(config.models_factary)("account");
 var main = require(config.main_mp2);
 var login = require(config.login_mp);
 var customer = require(config.customer_mp);
@@ -20,18 +20,18 @@ router.get('/customersList', customer.customersList);
 
 
 
-router.get('/getuser', function (req, res, next) {
-  Accounts.find(function (err, response) {
-    if (err) {
-      console.log("查询失败" + err);
-    }
-    else {
-      console.log("Res:" + response);
-      res.send('查询成功' + response);
-    }
+// router.get('/getuser', function (req, res, next) {
+//   Accounts.find(function (err, response) {
+//     if (err) {
+//       console.log("查询失败" + err);
+//     }
+//     else {
+//       console.log("Res:" + response);
+//       res.send('查询成功' + response);
+//     }
 
-  });
+//   });
 
-});
+// });
 
 module.exports = router;

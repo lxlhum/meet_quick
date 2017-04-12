@@ -149,7 +149,7 @@ function getBatchGetUsers(openids) {
 
 function customer_create(alldatas) {
   return new Promise((resolve, reject) => {
-    Customer.create(alldatas, function (err, response) {
+    Customer.Model.create(alldatas, function (err, response) {
       if (err) {
         console.log("保存失败:" + err);
         reject(err);

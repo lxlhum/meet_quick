@@ -10,7 +10,7 @@ exports.loginface = function (req, res, next) {
 
 exports.customersList = function (req, res, next) {
 
-    Customer.find({}, function (err, response) {
+    Customer.Model.find({}, function (err, response) {
         if (err) {
             console.log("Error:" + err);
             res.send('查询失败' + err);
