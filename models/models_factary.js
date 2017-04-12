@@ -15,8 +15,9 @@ var PageQuery = async (page, pageSize, Model, populate, queryParams, sortParams)
     };
 
     let count = await ModelCount(Model, queryParams);
+    console.log("查询count:" + count);
     let records = await PageRecords(Model, queryParams, start, pageSize, populate, sortParams);
-
+    console.log("查询records:" + records);
     $page.pageCount = (count - 1) / pageSize + 1;
     $page.results = records;
     return $page;

@@ -25,6 +25,7 @@ exports.customersList = function (req, res, next) {
     //     }
     // })
     try {
+        console.log("开始执行");
         var page = Customer.PageQuery(1, 3, Customer.Model, "", {}, {});
     } catch (err) {
         console.log(err);
