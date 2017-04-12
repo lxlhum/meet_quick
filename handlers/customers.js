@@ -10,7 +10,14 @@ exports.loginface = function (req, res, next) {
 
 exports.customersList = function (req, res, next) {
 
+    Customer.find(function (err, response) {
+        if (err) {
+            console.log("Error:" + err);
+        }
+        else {
+            console.log("Res:" + res);
+        }
+    })
 
-    
     res.render('customersList', { layout: "admin", title: '米特学堂后台管理系统' });
 }
