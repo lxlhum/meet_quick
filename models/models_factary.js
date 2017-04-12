@@ -19,7 +19,6 @@ var PageQuery = async (page, pageSize, Model, populate, queryParams, sortParams)
 
     $page.pageCount = (count - 1) / pageSize + 1;
     $page.results = records;
-d
     return $page;
 };
 
