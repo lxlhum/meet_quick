@@ -1,6 +1,6 @@
 var crypto = require('crypto');
 var config = require('../profile.json');
-var User = require(config.models_factary)("user");
+// var User = require(config.models_factary)("user");
 
 
 exports.loginface = function (req, res, next) {
