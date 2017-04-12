@@ -2,14 +2,6 @@
 <div class="content">
 
     <!-- settings changer -->
-    <div class="skins-nav">
-        <a href="#" class="skin first_nav selected">
-            <span class="icon"></span><span class="text">Default</span>
-        </a>
-        <a href="#" class="skin second_nav" data-file="css/skins/dark.css">
-            <span class="icon"></span><span class="text">Dark skin</span>
-        </a>
-    </div>
 
     <div class="container-fluid">
         <div id="pad-wrapper" class="users-list">
@@ -122,3 +114,29 @@
     </div>
 </div>
 <!-- end main container -->
+{{#section 'css'}} 
+<!-- bootstrap -->
+    <link href="../stylesheets/bootstrap/bootstrap.css" rel="stylesheet" />
+    <link href="../stylesheetscss/bootstrap/bootstrap-responsive.css" rel="stylesheet" />
+    <link href="../stylesheets/bootstrap/bootstrap-overrides.css" type="text/css" rel="stylesheet" />
+
+    <!-- global styles -->
+    <link rel="stylesheet" type="text/css" href="../stylesheets/layout.css" />
+    <link rel="stylesheet" type="text/css" href="../stylesheets/elements.css" />
+    <link rel="stylesheet" type="text/css" href="../stylesheets/icons.css" />
+
+    <!-- libraries -->
+    <link href="../stylesheets/lib/font-awesome.css" type="text/css" rel="stylesheet" />
+    
+    <!-- this page specific styles -->
+    <link rel="stylesheet" href="../stylesheets/compiled/user-list.css" type="text/css" media="screen" />    
+
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+{{/section}} 
+{{#section 'javascriptlib'}}
+<script src="../javascripts/jquery-latest.js"></script>
+<script src="../javascripts/bootstrap.min.js"></script>
+<script src="../javascripts/theme.js"></script>
+{{/section}}
