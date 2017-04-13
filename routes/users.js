@@ -10,7 +10,7 @@ var customer = require(config.customer_mp);
 router.get('/', main.authorize_session_only_username, login.loginface);
 router.post('/login:id', login.loginAction);
 
-router.get('/admin', main.authorize_session_only_username,  (req, res, next) =>{
+router.get('/admin', main.authorize_session_only_username, (req, res, next) => {
   res.render('admin', { layout: "admin", title: 'Express' });
 
 });

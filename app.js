@@ -28,7 +28,7 @@ var handlebars = require('express3-handlebars')
     .create({
         defaultLayout: 'main',
         helpers: {
-            section:  (name, options) =>{
+            section: function (name, options) {
                 if (!this._sections) this._sections = {};
                 this._sections[name] = options.fn(this);
                 return null;
@@ -58,14 +58,14 @@ app.use('/',index);
 app.use('/users', users);
 
 // catch 404 and forward to error handler
-app.use( (req, res, next) =>{
+app.use(function (req, res, next) {
     var err = new Error('Not Found');
     err.status = 404;
     next(err);
 });
 
 // error handler
-app.use( (err, req, res, next) =>{
+app.use(function (err, req, res, next) {
     // set locals, only providing error in development
     res.locals.message = err.message;
     res.locals.error = req.app.get('env') === 'development' ? err : {};
