@@ -2,12 +2,12 @@ var crypto = require('crypto');
 var config = require('../profile.json');
 var User = require(config.UserModel);
 
-exports.loginface = function (req, res, next) {
+exports.loginface = (req, res, next) => {
     // res.render('login', { layout: "login", title: '米特学堂后台管理系统' });
     res.render('admin', { layout: "admin", title: '米特学堂后台管理系统' });
 }
 
-exports.loginAction = function (req, res, next) {
+exports.loginAction = (req, res, next) => {
 
 
     var username = req.body.username
@@ -21,7 +21,7 @@ exports.loginAction = function (req, res, next) {
     shaSum_password.update(password);
     var hashedPassword = shaSum_password.digest('hex');
     console.log(hashedPassword);
-    User.Model.findOne({ "username": hashedUsername, "password": hashedPassword }, function (err, doc) {
+    User.Model.findOne({ "username": hashedUsername, "password": hashedPassword }, (err, doc) => {
         var exists = !!doc;
         if (exists) {
 
@@ -45,7 +45,7 @@ exports.loginAction = function (req, res, next) {
 
 }
 
-exports.tempAddUser = function (req, res, next) {
+exports.tempAddUser = (req, res, next) => {
 
     var username = "meet_ac20110317_admin"
     var password = "Cx_20110317_acmeet";
@@ -64,7 +64,7 @@ exports.tempAddUser = function (req, res, next) {
         password: hashedPassword,
         lastlogintime: new Date()
     });
-    user.save(function (err, response) {
+    user.save((err, response) => {
 
         if (err) {
             console.log("保存失败" + err);

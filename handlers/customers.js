@@ -3,14 +3,14 @@ var config = require('../profile.json');
 var Customer = require(config.CustomerModel);
 
 
-exports.loginface = function (req, res, next) {
+exports.loginface = (req, res, next) => {
     // res.render('login', { layout: "login", title: '米特学堂后台管理系统' });
     res.render('admin', { layout: "admin", title: '米特学堂后台管理系统' });
 }
 
-exports.customersList = function (req, res, next) {
+exports.customersList = (req, res, next) => {
 
-    // Customer.Model.find({}, function (err, response) {
+    // Customer.Model.find({},  (err, response) =>{
     //     if (err) {
     //         console.log("Error:" + err);
     //         res.send('查询失败' + err);

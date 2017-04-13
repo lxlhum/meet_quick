@@ -10,7 +10,7 @@ var customer = require(config.customer_mp);
 router.get('/', main.authorize_session_only_username, login.loginface);
 router.post('/login:id', login.loginAction);
 
-router.get('/admin', main.authorize_session_only_username, function (req, res, next) {
+router.get('/admin', main.authorize_session_only_username,  (req, res, next) =>{
   res.render('admin', { layout: "admin", title: 'Express' });
 
 });
@@ -20,8 +20,8 @@ router.get('/customersList', customer.customersList);
 
 
 
-// router.get('/getuser', function (req, res, next) {
-//   Accounts.find(function (err, response) {
+// router.get('/getuser',  (req, res, next) =>{
+//   Accounts.find( (err, response) =>{
 //     if (err) {
 //       console.log("查询失败" + err);
 //     }

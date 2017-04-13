@@ -16,7 +16,7 @@ var PageQuery = async (page, pageSize, Model, populate, queryParams, sortParams)
 
     let count = await ModelCount(Model, queryParams);
     let records = await PageRecords(Model, queryParams, start, pageSize, populate, sortParams);
-    
+
     $page.pageCount = (count - 1) / pageSize + 1;
     $page.results = records;
     return $page;
@@ -32,12 +32,19 @@ var ModelCount = (Model, queryParams) => {
 }
 
 var PageRecords = (Model, queryParams, start, pageSize, populate, sortParams) => {
-    return Model.find(queryParams).skip(start).limit(pageSize).populate(populate).sort(sortParams).exec().then((doc) => {
-        return doc;
-    }).catch((err) => {
-        console.log("err:" + err);
-        return err;
-    });
+    return Model
+        .find(queryParams)
+        .skip(start)
+        .limit(pageSize)
+        .populate(populate)
+        .sort(sortParams)
+        .exec()
+        .then((doc) => {
+            return doc;
+        }).catch((err) => {
+            console.log("err:" + err);
+            return err;
+        });
 }
 
 module.exports = (ModelName) => {

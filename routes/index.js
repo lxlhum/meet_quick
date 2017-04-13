@@ -10,17 +10,17 @@ var request = require('request');
 var gm = require('gm').subClass({ imageMagick: true });
 
 var menu = JSON.stringify(require('../menu.json'));
-api.createMenu(menu, function (err, result) { });
+api.createMenu(menu, (err, result) => { });
 
 /* GET home page. */
-router.get('/', function (req, res, next) {
+router.get('/', (req, res, next) => {
   res.render('index', { title: 'Express' });
 });
 
 var Customer = require(config.CustomerModel);
 
-router.get('/meetconfig', wechat(config, function (req, res, next) { }));
-router.post('/meetconfig', wechat(config, function (req, res, next) {
+router.get('/meetconfig', wechat(config, (req, res, next) => { }));
+router.post('/meetconfig', wechat(config, (req, res, next) => {
 
   console.log("消息判断和事件响应");
 
@@ -100,7 +100,7 @@ router.post('/meetconfig', wechat(config, function (req, res, next) {
       switch (message.Event) {
         case "subscribe": {
           res.reply('subscribe');
-          api.getUser(message.FromUserName, function (err, data, res) {
+          api.getUser(message.FromUserName,  (err, data, res) =>{
             for (key in data) {
               console.log(key + ":" + data[key]); // { errcode: 0, errmsg: 'ok' }
             }
@@ -117,9 +117,9 @@ router.post('/meetconfig', wechat(config, function (req, res, next) {
   }
 }));
 
-function getFollower() {
+var getFollower = () => {
   return new Promise((resolve, reject) => {
-    api.getFollowers(function (err, data, response) {
+    api.getFollowers( (err, data, response) =>{
       if (err) {
         console.log("获取关注用户数据失败:" + err);
         reject(err);
@@ -132,9 +132,9 @@ function getFollower() {
   });
 };
 
-function getBatchGetUsers(openids) {
+var getBatchGetUsers = (openids) => {
   return new Promise((resolve, reject) => {
-    api.batchGetUsers(openids, function (err, data, responses) {
+    api.batchGetUsers(openids, (err, data, responses) => {
       if (err) {
         console.log("批量获取数据失败:" + err);
         reject(err);
@@ -147,9 +147,9 @@ function getBatchGetUsers(openids) {
   });
 };
 
-function customer_create(alldatas) {
+var customer_create = (alldatas) => {
   return new Promise((resolve, reject) => {
-    Customer.Model.create(alldatas, function (err, response) {
+    Customer.Model.create(alldatas, (err, response) => {
       if (err) {
         console.log("保存失败:" + err);
         reject(err);
@@ -162,9 +162,9 @@ function customer_create(alldatas) {
   });
 }
 
-function getTmpQRCodeURL() {
+var getTmpQRCodeURL = () => {
   return new Promise((resolve, reject) => {
-    api.createTmpQRCode("x", 100, function (err, data, response) {
+    api.createTmpQRCode("x", 100, (err, data, response) => {
       if (err) {
         console.log("获取二维码信息失败:" + err);
         reject(err);
@@ -178,11 +178,11 @@ function getTmpQRCodeURL() {
   })
 }
 
-function downTmpQRCode(qr_path, qucodemedia) {
+var downTmpQRCode = (qr_path, qucodemedia) => {
   return new Promise((resolve, reject) => {
     var fileWriteStream = fs.createWriteStream(qr_path);
     request(qucodemedia).pipe(fileWriteStream);
-    fileWriteStream.on('close', function (err) {
+    fileWriteStream.on('close', (err) => {
       if (err) {
         console.log("图片下载失败:" + err);
         reject(err);
@@ -195,12 +195,12 @@ function downTmpQRCode(qr_path, qucodemedia) {
   });
 }
 
-function gmResize(qr_path, qr_path_out_resize) {
+var gmResize = (qr_path, qr_path_out_resize) => {
   return new Promise((resolve, reject) => {
     gm(qr_path)
       .resize(126, 126)
       .noProfile()
-      .write(qr_path_out_resize, function (err) {
+      .write(qr_path_out_resize, (err) => {
         if (err) {
           console.log("图片裁剪失败:" + err);
           reject(err);
@@ -213,12 +213,12 @@ function gmResize(qr_path, qr_path_out_resize) {
   })
 }
 
-function gmComposite(a_path, qr_path_out_resize, qr_path_out) {
+var gmComposite = (a_path, qr_path_out_resize, qr_path_out) => {
   return new Promise((resolve, reject) => {
     gm(a_path)
       .composite(qr_path_out_resize)
       .geometry('+130+67')
-      .write(qr_path_out, function (err) {
+      .write(qr_path_out, (err) => {
         if (err) {
           console.log("图片合成失败:" + err);
           reject(err);
@@ -231,9 +231,9 @@ function gmComposite(a_path, qr_path_out_resize, qr_path_out) {
   })
 }
 
-function douploadMedia(qr_path_out) {
+var douploadMedia = (qr_path_out) => {
   return new Promise((resolve, reject) => {
-    api.uploadMedia(qr_path_out, "image", function (err, result) {
+    api.uploadMedia(qr_path_out, "image", (err, result) => {
       if (err) {
         console.log("图片上传失败:" + err);
         reject(err);

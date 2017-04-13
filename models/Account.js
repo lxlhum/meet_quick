@@ -1,4 +1,4 @@
-module.exports = function (config, mongoose, nodemailer) {
+module.exports =  (config, mongoose, nodemailer) =>{
   var crypto = require('crypto');
 
   var AccountSchema = new mongoose.Schema({
@@ -20,7 +20,7 @@ module.exports = function (config, mongoose, nodemailer) {
 
   var Account = mongoose.model('Account', AccountSchema);
 
-  var registerCallback = function (err) {
+  var registerCallback =  (err) =>{
     if (err) {
       return console.log(err);
     };
