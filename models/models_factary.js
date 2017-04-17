@@ -14,10 +14,11 @@ var PageQuery = async (page, pageSize, Model, populate, queryParams, sortParams)
         pageNumber: page
     };
 
-    let count = await ModelCount(Model, queryParams);
+    let TotleRow = await ModelCount(Model, queryParams);
     let records = await PageRecords(Model, queryParams, start, pageSize, populate, sortParams);
 
-    $page.pageCount = (count - 1) / pageSize + 1;
+    $page.TotleRow = TotleRow;//(count - 1) / pageSize + 1;
+    $page.PageCount=parseInt(TotleRow/pageSize)+1;
     $page.results = records;
     return $page;
 };

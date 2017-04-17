@@ -82,36 +82,40 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <!-- row -->
-                        {{#each customersList}}
-                        <tr>
-                            <td>
-                                <img src={{headimgurl}} class="img-circle avatar hidden-phone" />
-                                <a href="user-profile.html" class="name">{{nickname}}</a>
-                                <span class="subtext">{{sex}}</span>
-                            </td>
-                            <td>
-                                {{phone_no}}
-                            </td>
-                            <td>
-                                {{province}}
-                            </td>
-                            <td>
-                                {{email}}
-                            </td>
-                            <td>
-                                {{children}}
-                            </td>
-                            <td class="align-right">
-                                <a href="#">{{groupid}}</a>
-                            </td>
-                        </tr>
-                        {{/each}}
+                        <div id="divshow">
+                            <!-- row -->
+                            {{#each customersList}}
+                            <tr>
+                                <td>
+                                    <img src={{headimgurl}} class="img-circle avatar hidden-phone" />
+                                    <a href="user-profile.html" class="name">{{nickname}}</a>
+                                    <span class="subtext">{{sex}}</span>
+                                </td>
+                                <td>
+                                    {{phone_no}}
+                                </td>
+                                <td>
+                                    {{province}}
+                                </td>
+                                <td>
+                                    {{email}}
+                                </td>
+                                <td>
+                                    {{children}}
+                                </td>
+                                <td class="align-right">
+                                    <a href="#">{{groupid}}</a>
+                                </td>
+                            </tr>
+                            {{/each}}
+                        </div>
                     </tbody>
                 </table>
             </div>
             <div class="pagination pull-right">
+                {{!--
                 <ul>
+                    <li><a href="#">首页</a></li>
                     <li><a href="#">&#8249;</a></li>
                     <li><a class="active" href="#">1</a></li>
                     <li><a href="#">2</a></li>
@@ -119,7 +123,10 @@
                     <li><a href="#">4</a></li>
                     <li><a href="#">5</a></li>
                     <li><a href="#">&#8250;</a></li>
-                </ul>
+                    <li><a href="#">尾页</a></li>
+                </ul>--}}
+                {{!--<ul class="page" maxshowpageitem="5" pagelistcount="2" id="page"></ul>--}}
+                <div id="kkpager" class="billManKK"></div>
             </div>
             <!-- end users table -->
         </div>
@@ -129,7 +136,7 @@
 {{#section 'css'}}
 <!-- bootstrap -->
 <link href="../stylesheets/bootstrap/bootstrap.css" rel="stylesheet" />
-<link href="../stylesheetscss/bootstrap/bootstrap-responsive.css" rel="stylesheet" />
+<link href="../stylesheets/bootstrap/bootstrap-responsive.css" rel="stylesheet" />
 <link href="../stylesheets/bootstrap/bootstrap-overrides.css" type="text/css" rel="stylesheet" />
 
 <!-- global styles -->
@@ -146,9 +153,34 @@
 <!--[if lt IE 9]>
       <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
-{{/section}} 
-{{#section 'javascriptlib'}}
+<link rel="stylesheet" type="text/css" href="../stylesheets/pager.css" /> {{/section}} {{#section 'javascriptlib'}}
 <script src="../javascripts/jquery-latest.js"></script>
 <script src="../javascripts/bootstrap.min.js"></script>
 <script src="../javascripts/theme.js"></script>
+<script src="../javascripts/pager.js"></script>
+<script type="text/javascript">
+    $(function(){
+            {{#if totalPages}}
+                var totalPage = {{totalPages}};
+            {{else}}
+                var totalPage = 1;
+            {{/if}}
+            var totalRecords = 500;
+
+            kkpager.generPageHtml({
+                pno : {{pno}},
+                total : totalPage,
+                //总数据条数
+                totalRecords : totalRecords,
+                mode : 'click',
+                click : function(n){                  
+
+                    this.selectPage(n);
+                    window.location = "/users/customersList?page=" + n;
+                    return false;
+                }
+            });
+        });
+
+</script>
 {{/section}}

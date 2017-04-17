@@ -24,13 +24,17 @@ exports.customersList = (req, res, next) => {
     //         });
     //     }
     // })
+    var pageNum = req.query.page ? req.query.page : 1;
+    var pageSize = 2;
 
-    Customer.PageQuery(1, 3, Customer.Model, "", {}, {}).then((pageResult) => {
+    Customer.PageQuery(pageNum, pageSize, Customer.Model, "", {}, {}).then((pageResult) => {
 
         res.render('customersList', {
             layout: "admin",
             title: '米特学堂后台管理系统',
-            customersList: pageResult.results
+            customersList: pageResult.results,
+            totalPages: pageResult.PageCount,
+            pno: pageNum,
         });
     }).catch((err) => {
         console.log("查询失败:" + err);
