@@ -94,7 +94,7 @@ exports.wechat_event = (req, res, next) => {
                             let wherestr = { 'activity_ticket': message.Ticket };
                             let activityInfo = await getActivityInfo(wherestr);
                             console.log(activityInfo);
-                            let recommenderInfo = await getOneUserInfo(activityInfo.open_id);
+                            let recommenderInfo = await getOneUserInfo(activityInfo[0].open_id);
                             for (key in recommenderInfo) {
                                 console.log("recommenderInfo:"+key + ":" + data[key]); // { errcode: 0, errmsg: 'ok' }
                             }
