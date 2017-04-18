@@ -1,10 +1,4 @@
-{{#section 'css'}}
-    <link rel="stylesheet" href="../stylesheets/weui.css" />
-    <link rel="stylesheet" href="../stylesheets/example.css" />
-{{/section}} 
-{{#section 'javascriptlib'}}
-<script type="text/html" id="tpl_badge">
-        <div class="page">
+<div class="page">
             <div class="page__hd">
                 <h1 class="page__title">Badge</h1>
                 <p class="page__desc">徽章</p>
@@ -60,7 +54,14 @@
                 <a href="javascript:home()"><img src="./images/icon_footer_link.png" /></a>
             </div>
         </div>
-    </script>
+
+
+{{#section 'css'}}
+    <link rel="stylesheet" href="../stylesheets/weui.css" />
+    {{!--<link rel="stylesheet" href="../stylesheets/example.css" />--}}
+{{/section}} 
+{{#section 'javascriptlib'}}
+
     
     <script src="../javascripts/zepto.min.js"></script>
     <script type="text/javascript" src="https://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
