@@ -99,6 +99,7 @@ router.post('/meetconfig', wechat(config, (req, res, next) => {
     case "event": {
       switch (message.Event) {
         case "subscribe": {
+          console.log(message);
           res.reply('subscribe');
           api.getUser(message.FromUserName, (err, data, res) => {
             for (key in data) {
