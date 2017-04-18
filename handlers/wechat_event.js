@@ -173,7 +173,7 @@ var getTmpQRCodeURL = (open_id) => {
                     livetime: exist_time
                 });
 
-                user.save((err, response) => {
+                activity.save((err, response) => {
 
                     if (err) {
                         console.log("保存失败" + err);
