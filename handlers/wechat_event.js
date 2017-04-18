@@ -96,7 +96,7 @@ exports.wechat_event = (req, res, next) => {
                             console.log(activityInfo);
                             let recommenderInfo = await getOneUserInfo(activityInfo[0].open_id);
                             for (key in recommenderInfo) {
-                                console.log("recommenderInfo:"+key + ":" + data[key]); // { errcode: 0, errmsg: 'ok' }
+                                console.log("recommenderInfo:"+key + ":" + recommenderInfo[key]); // { errcode: 0, errmsg: 'ok' }
                             }
                         })().then(() => {
                             api.getUser(message.FromUserName, (err, data, response) => {
