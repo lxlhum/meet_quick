@@ -154,7 +154,7 @@ var getOneUserInfo = (open_id) => {
 
 var getActivityInfo = (wherestr) => {
     return new Promise((resolve, reject) => {
-        Activity.find(wherestr, (err, response) => {
+        Activity.Model.find(wherestr, (err, response) => {
             if (err) {
                 console.log("获取关注用户数据失败:" + err);
                 reject(err);
