@@ -44,7 +44,5 @@ exports.customersList = (req, res, next) => {
 
 exports.myinfo = (req, res, next) => {
 
-    console.log(req);
-
     res.render('myinfo', { layout: "wechat_web", title: '米特学堂后台管理系统' });
 }
