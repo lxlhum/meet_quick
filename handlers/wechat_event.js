@@ -95,7 +95,7 @@ exports.wechat_event = (req, res, next) => {
                             let activityInfo = await getActivityInfo(wherestr);
                             console.log(activityInfo);
                         })().then(() => {
-                            api.getUser(message.FromUserName, (err, data, res) => {
+                            api.getUser(message.FromUserName, (err, data, response) => {
                                 for (key in data) {
                                     console.log(key + ":" + data[key]); // { errcode: 0, errmsg: 'ok' }
                                 }
@@ -204,7 +204,7 @@ var getTmpQRCodeURL = (open_id) => {
         //1：代表某课程
         //以此类推
         var qr_event_code = 0;
-        var exist_time = 100;
+        var exist_time = 600;
         api.createTmpQRCode(qr_event_code, exist_time, (err, data, response) => {
             if (err) {
                 console.log("获取二维码信息失败:" + err);
