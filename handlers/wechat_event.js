@@ -2,6 +2,7 @@ const request = require('request');
 const gm = require('gm').subClass({ imageMagick: true });
 const fs = require('fs');
 const config = require('../profile.json');
+const api = require('../wechat/wechat_api.js');
 const Customer = require(config.CustomerModel);
 
 exports.wechat_event = (req, res, next) => {
