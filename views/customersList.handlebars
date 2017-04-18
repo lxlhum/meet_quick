@@ -104,14 +104,10 @@
                                     {{children}}
                                 </td>
                                 <td>
-                                    {{!--{{#if recommender_headimgurl}}--}}
+                                    {{#if recommender_headimgurl}}
                                     <img src={{recommender_headimgurl}} class="img-circle avatar hidden-phone" />
                                     <a href="#" class="name">{{recommender_nickname}}</a>
-                                    <span class="subtext">{{sex}}</span> 
-                                    {{!--{{else}} --}}
-                                    {{!--普通关注--}}
-                                    {{!--{{/if}}--}}
-
+                                    <span class="subtext">{{sex}}</span> {{else}} 普通关注 {{/if}}
                                 </td>
                             </tr>
                             {{/each}}
@@ -167,18 +163,15 @@
 <script src="../javascripts/pager.js"></script>
 <script type="text/javascript">
     $(function () {
-        { { #if totalPages}}
-        var totalPage = {{totalPages }
-    };
-    { {else} }
+        {{#if totalPages}}
+        var totalPage = {{totalPages}};
+    {{else}}
     var totalPage = 1;
-    {
-        {            
-/if}}
+    {{/if}}
             var totalRecords = 500;
 
             kkpager.generPageHtml({
-                pno: {{pno }},
+                pno: {{pno}},
         total: totalPage,
             //总数据条数
             totalRecords : totalRecords,
