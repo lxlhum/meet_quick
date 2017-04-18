@@ -135,6 +135,14 @@ exports.wechat_event = (req, res, next) => {
                     }
 
                 }; break;
+
+                case "VIEW": {
+                    message.EventKey=message.EventKey+"?openid="+message.FromUserName;
+                    console.log(message.EventKey);
+                    res.reply('接收跳转事件');
+
+                }; break;
+
             }
         }; break;
     }
