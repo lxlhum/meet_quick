@@ -86,11 +86,12 @@ exports.wechat_event = (req, res, next) => {
             switch (message.Event) {
                 case "subscribe": {
                     console.log(message);
-                    var recommender = {};
-                    if (message.EventKey === "qrscene_0") {
-                        (async () => {
-                            //此处要取得两个数据
-                            //openid 、头像信息、nikename
+
+
+                    (async () => {
+                        //此处要取得两个数据
+                        //openid 、头像信息、nikename
+                        if (message.EventKey === "qrscene_0") {
                             let wherestr = { 'activity_ticket': message.Ticket };
                             let activityInfo = await getActivityInfo(wherestr);
                             console.log(activityInfo);
@@ -103,17 +104,23 @@ exports.wechat_event = (req, res, next) => {
                             commenderInfo.recommender_headimgurl = recommenderInfo.headimgurl;
                             newCustomerUser[0] = commenderInfo;
                             await customer_create(newCustomerUser);
+                        } else {
+                            let commenderInfo = await getOneUserInfo(message.FromUserName);
+                            let newCustomerUser = [];
+                            newCustomerUser[0] = commenderInfo;
+                            await customer_create(newCustomerUser);
+                        }
 
-                            // for (key in recommenderInfo) {
-                            //     console.log("recommenderInfo:" + key + ":" + recommenderInfo[key]); // { errcode: 0, errmsg: 'ok' }
-                            // }
-                        })().then(() => {
-                            res.reply('成功关注');
-                        }).catch((err) => {
-                            console.log(err);
-                            res.reply('欢迎欢迎');
-                        })
-                    }
+                        // for (key in recommenderInfo) {
+                        //     console.log("recommenderInfo:" + key + ":" + recommenderInfo[key]); // { errcode: 0, errmsg: 'ok' }
+                        // }
+                    })().then(() => {
+                        res.reply('成功关注');
+                    }).catch((err) => {
+                        console.log(err);
+                        res.reply('欢迎欢迎');
+                    })
+
                 }; break;
                 case "unsubscribe": {
                     res.reply('unsubscribe');
