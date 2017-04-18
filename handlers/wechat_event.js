@@ -195,7 +195,7 @@ var customer_create = (alldatas) => {
                 reject(err);
             }
             else {
-                // console.log("保存成功:" + response);
+                console.log("保存成功:" + response);
                 resolve(true);
             }
         });
