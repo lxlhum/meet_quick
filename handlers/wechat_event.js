@@ -95,24 +95,25 @@ exports.wechat_event = (req, res, next) => {
                             let activityInfo = await getActivityInfo(wherestr);
                             console.log(activityInfo);
                             let recommenderInfo = await getOneUserInfo(activityInfo[0].open_id);
-                            for (key in recommenderInfo) {
-                                console.log("recommenderInfo:"+key + ":" + recommenderInfo[key]); // { errcode: 0, errmsg: 'ok' }
-                            }
+                            let commenderInfo = await getOneUserInfo(message.FromUserName);
+                            let newCustomerUser = [];
+
+                            commenderInfo.recommender_openid = recommenderInfo.openid;
+                            commenderInfo.recommender_nickname = recommenderInfo.nickname;
+                            commenderInfo.recommender_headimgurl = recommenderInfo.headimgurl;
+
+                            await customer_create(newCustomerUser);
+
+                            // for (key in recommenderInfo) {
+                            //     console.log("recommenderInfo:" + key + ":" + recommenderInfo[key]); // { errcode: 0, errmsg: 'ok' }
+                            // }
                         })().then(() => {
-                            api.getUser(message.FromUserName, (err, data, response) => {
-                                for (key in data) {
-                                    console.log(key + ":" + data[key]); // { errcode: 0, errmsg: 'ok' }
-                                }
-                                res.reply('成功关注');
-                            });
+                            res.reply('成功关注');
                         }).catch((err) => {
                             console.log(err);
                             res.reply('欢迎欢迎');
                         })
-
-
                     }
-
                 }; break;
                 case "unsubscribe": {
                     res.reply('unsubscribe');
