@@ -76,7 +76,7 @@
                             <th class="span2 sortable">
                                 <span class="line"></span>孩子
                             </th>
-                            <th class="span2 sortable align-right">
+                            <th class="span3 sortable">
                                 <span class="line"></span>来源
                             </th>
                         </tr>
@@ -103,9 +103,10 @@
                                 <td>
                                     {{children}}
                                 </td>
-                                <td class="align-right">
+                                <td>
                                     <img src={{recommender_headimgurl}} class="img-circle avatar hidden-phone" />
                                     <a href="#" class="name">{{recommender_nickname}}</a>
+                                    <span class="subtext">{{sex}}</span>
                                 </td>
                             </tr>
                             {{/each}}
