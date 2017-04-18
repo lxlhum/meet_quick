@@ -86,7 +86,18 @@ exports.wechat_event = (req, res, next) => {
             switch (message.Event) {
                 case "subscribe": {
                     console.log(message);
-                    res.reply('subscribe');
+                    var recommender = {};
+                    if (message.EventKey === "qrscene_0") {
+
+                        //此处要取得两个数据
+                        //openid 、头像信息、nikename
+                        let wherestr = {'activity_ticket' : message.Ticket};
+                        let activityInfo = await getActivityInfo(wherestr);
+
+                        console.log(activityInfo);
+
+                    }
+                    res.reply('成功关注');
                     api.getUser(message.FromUserName, (err, data, res) => {
                         for (key in data) {
                             console.log(key + ":" + data[key]); // { errcode: 0, errmsg: 'ok' }
@@ -115,6 +126,36 @@ var getFollower = () => {
             else {
                 console.log("获取关注用户数据成功:");
                 resolve(data.data.openid);
+            }
+        });
+    });
+};
+
+var getOneUserInfo = (open_id) => {
+    return new Promise((resolve, reject) => {
+        api.getUser(open_id,(err, data, response) => {
+            if (err) {
+                console.log("获取关注用户数据失败:" + err);
+                reject(err);
+            }
+            else {
+                console.log("获取关注用户数据成功:");
+                resolve(data);
+            }
+        });
+    });
+};
+
+var getActivityInfo = (wherestr) => {
+    return new Promise((resolve, reject) => {
+        Activity.find(wherestr,(err, response) => {
+            if (err) {
+                console.log("获取关注用户数据失败:" + err);
+                reject(err);
+            }
+            else {
+                console.log("获取关注用户数据成功:");
+                resolve(response);
             }
         });
     });
