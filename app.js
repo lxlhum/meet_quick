@@ -7,16 +7,6 @@ const session = require('express-session');
 const bodyParser = require('body-parser');
 const credentials = require('./credentials.js');
 
-// var mongoose = require("mongoose");
-// var config = require('./profile.json');
-// mongoose.connect(config.db_conection);
-
-// var SessionStore = require("session-mongoose")(express);
-// var store = new SessionStore({
-//     interval: 20000, // expiration check worker run interval in millisec (default: 60000)
-//     connection: mongoose.connection // <== custom connection
-// });
-
 var index = require('./routes/index');
 var users = require('./routes/users');
 

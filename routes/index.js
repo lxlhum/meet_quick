@@ -100,7 +100,7 @@ router.post('/meetconfig', wechat(config, (req, res, next) => {
       switch (message.Event) {
         case "subscribe": {
           res.reply('subscribe');
-          api.getUser(message.FromUserName,  (err, data, res) =>{
+          api.getUser(message.FromUserName, (err, data, res) => {
             for (key in data) {
               console.log(key + ":" + data[key]); // { errcode: 0, errmsg: 'ok' }
             }
@@ -110,7 +110,8 @@ router.post('/meetconfig', wechat(config, (req, res, next) => {
           res.reply('unsubscribe');
         }; break;
         case "SCAN": {
-          res.reply('感谢您关注米特学院，么么哒，目前该功能还不完善，更多功能需要和彭老师一起定制哟' + message.EventKey);
+          // res.reply('感谢您关注米特学院，么么哒，目前该功能还不完善，更多功能需要和彭老师一起定制哟' + message.EventKey);
+          res.render('admin', { layout: "admin", title: 'Express' });
         }; break;
       }
     }; break;
@@ -119,7 +120,7 @@ router.post('/meetconfig', wechat(config, (req, res, next) => {
 
 var getFollower = () => {
   return new Promise((resolve, reject) => {
-    api.getFollowers( (err, data, response) =>{
+    api.getFollowers((err, data, response) => {
       if (err) {
         console.log("获取关注用户数据失败:" + err);
         reject(err);
