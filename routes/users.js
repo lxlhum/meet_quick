@@ -17,6 +17,7 @@ router.get('/admin', main.authorize_session_only_username, (req, res, next) => {
 
 router.get('/putuser', login.tempAddUser);
 router.get('/customersList', customer.customersList);
+router.get('/myinfo',customer.myinfo)
 
 
 
