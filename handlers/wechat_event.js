@@ -101,7 +101,7 @@ exports.wechat_event = (req, res, next) => {
                             commenderInfo.recommender_openid = recommenderInfo.openid;
                             commenderInfo.recommender_nickname = recommenderInfo.nickname;
                             commenderInfo.recommender_headimgurl = recommenderInfo.headimgurl;
-
+                            newCustomerUser[0] = commenderInfo;
                             await customer_create(newCustomerUser);
 
                             // for (key in recommenderInfo) {
