@@ -104,9 +104,14 @@
                                     {{children}}
                                 </td>
                                 <td>
+                                    {{#if recommender_headimgurl}}
                                     <img src={{recommender_headimgurl}} class="img-circle avatar hidden-phone" />
                                     <a href="#" class="name">{{recommender_nickname}}</a>
-                                    <span class="subtext">{{sex}}</span>
+                                    <span class="subtext">{{sex}}</span> 
+                                    {{#else}} 
+                                    普通关注
+                                    {{/if}}
+
                                 </td>
                             </tr>
                             {{/each}}
@@ -126,8 +131,8 @@
                     <li><a href="#">5</a></li>
                     <li><a href="#">&#8250;</a></li>
                     <li><a href="#">尾页</a></li>
-                </ul>--}}
-                {{!--<ul class="page" maxshowpageitem="5" pagelistcount="2" id="page"></ul>--}}
+                </ul>--}} {{!--
+                <ul class="page" maxshowpageitem="5" pagelistcount="2" id="page"></ul>--}}
                 <div id="kkpager" class="billManKK"></div>
             </div>
             <!-- end users table -->
@@ -161,27 +166,30 @@
 <script src="../javascripts/theme.js"></script>
 <script src="../javascripts/pager.js"></script>
 <script type="text/javascript">
-    $(function(){
-            {{#if totalPages}}
-                var totalPage = {{totalPages}};
-            {{else}}
-                var totalPage = 1;
-            {{/if}}
+    $(function () {
+        { { #if totalPages}}
+        var totalPage = {{totalPages }
+    };
+    { {else} }
+    var totalPage = 1;
+    {
+        {            
+/if}}
             var totalRecords = 500;
 
             kkpager.generPageHtml({
-                pno : {{pno}},
-                total : totalPage,
-                //总数据条数
-                totalRecords : totalRecords,
+                pno: {{pno }},
+        total: totalPage,
+            //总数据条数
+            totalRecords : totalRecords,
                 mode : 'click',
-                click : function(n){                  
+                    click : function(n) {
 
-                    this.selectPage(n);
-                    window.location = "/users/customersList?page=" + n;
-                    return false;
-                }
-            });
+                        this.selectPage(n);
+                        window.location = "/users/customersList?page=" + n;
+                        return false;
+                    }
+    });
         });
 
 </script>
