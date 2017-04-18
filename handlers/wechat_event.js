@@ -4,6 +4,7 @@ const fs = require('fs');
 const config = require('../profile.json');
 const api = require('../wechat/wechat_api.js');
 const Customer = require(config.CustomerModel);
+const Activity = require(config.ActivityModel);
 
 exports.wechat_event = (req, res, next) => {
 
@@ -40,7 +41,7 @@ exports.wechat_event = (req, res, next) => {
                     var qr_path_out = config.path_wechat + message.FromUserName + message.CreateTime + '_out2.png';
                     var media_id = "";
                     (async () => {
-                        let tmpQRCodeURL = await getTmpQRCodeURL();
+                        let tmpQRCodeURL = await getTmpQRCodeURL(message.FromUserName);
                         await downTmpQRCode(qr_path, tmpQRCodeURL);
                         await gmResize(qr_path, qr_path_out_resize);
                         await gmComposite(a_path, qr_path_out_resize, qr_path_out);
@@ -149,17 +150,42 @@ var customer_create = (alldatas) => {
     });
 }
 
-var getTmpQRCodeURL = () => {
+var getTmpQRCodeURL = (open_id) => {
     return new Promise((resolve, reject) => {
-        api.createTmpQRCode("x", 100, (err, data, response) => {
+        //此处需要增加活动管理
+        //0：代表关注公众号
+        //1：代表某课程
+        //以此类推
+        var qr_event_code = 0;
+        var exist_time = 100;
+        api.createTmpQRCode(qr_event_code, exist_time, (err, data, response) => {
             if (err) {
                 console.log("获取二维码信息失败:" + err);
                 reject(err);
             }
             else {
-                let qucodemedia = api.showQRCodeURL(data.ticket);
-                console.log("showQRCodeURL:" + qucodemedia);
-                resolve(qucodemedia);
+                //先保存
+                let activity = new Activity.Model({
+                    activity_ticket: data.ticket,
+                    qr_event_code: qr_event_code,
+                    open_id: open_id,
+                    qr_time: new Date(),
+                    livetime: exist_time
+                });
+
+                user.save((err, response) => {
+
+                    if (err) {
+                        console.log("保存失败" + err);
+                        res.send('保存失败');
+                    }
+                    else {
+                        console.log("Res:" + response);
+                        let qucodemedia = api.showQRCodeURL(data.ticket);
+                        console.log("showQRCodeURL:" + qucodemedia);
+                        resolve(qucodemedia);
+                    }
+                });
             }
         });
     })
