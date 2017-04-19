@@ -9,6 +9,13 @@ const menu = JSON.stringify(require('../menu.json'));
 api.createMenu(menu, (err, result) => { });
 
 router.get('/', (req, res, next) => {
+
+  // var OAuth = require('wechat-oauth');
+  // var client = new OAuth(config.appid, config.appsecret);
+
+  // var url = client.getAuthorizeURL('http://www.yangtz.com/users/myinfo/', 'hehe', 'snsapi_userinfo');
+  // console.log(url);
+
   res.render('index', { title: 'Express' });
 });
 
