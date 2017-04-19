@@ -52,8 +52,10 @@ exports.myinfo = (req, res, next) => {
     var code = req.query.code;
     //获取票券
     client.getAccessToken(code, function (err, result) {
-        var openid = result.data.openid;
-        console.log("查询到了openid:" + openid);    
+        // var openid = result.data.openid;
+        console.log("err:" + err); 
+        console.log("code:" + code);    
+        console.log("result:" + result);    
         });
     res.render('myinfo', {layout: "wechat_web", title: '米特学堂后台管理系统' });
 }
