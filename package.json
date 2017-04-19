@@ -22,7 +22,8 @@
     "serve-favicon": "^2.3.2",
     "session-mongoose": "^0.5.2",
     "wechat": "^2.1.0",
-    "wechat-api": "^1.32.0"
+    "wechat-api": "^1.32.0",
+    "wechat-oauth": "^1.2.1"
   },
   "description": "The final version of meet academy  with express and mongoose.",
   "main": "app.js",

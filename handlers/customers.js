@@ -1,3 +1,5 @@
+'use strict';
+
 var crypto = require('crypto');
 var config = require('../profile.json');
 var Customer = require(config.CustomerModel);
@@ -42,8 +44,16 @@ exports.customersList = (req, res, next) => {
     });
 }
 
-exports.myinfo = (req, res, next) => {
 
-    console.log("查询:" + req.session.openid);
-    res.render('myinfo', { layout: "wechat_web", title: '米特学堂后台管理系统' });
+var OAuth = require('wechat-oauth');
+var client = new OAuth(config.appid, config.appsecret);
+
+exports.myinfo = (req, res, next) => {
+    var code = req.query.code;
+    //获取票券
+    client.getAccessToken(code, function (err, result) {
+        var openid = result.data.openid;
+        console.log("查询到了openid:" + openid);    
+        });
+    res.render('myinfo', {layout: "wechat_web", title: '米特学堂后台管理系统' });
 }
