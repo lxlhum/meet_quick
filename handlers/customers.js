@@ -72,10 +72,10 @@ exports.myinfo = (req, res, next) => {
                 res.render('myinfo', {
                     layout: "wechat_web",
                     title: '米特学堂后台管理系统',
-                    nickname:response["nickname"],
-                    headimgurl:response["headimgurl"],
-                    sex:response["sex"]==="1"?"男":"女",
-                    province:response["province"]
+                    nickname:response.nickname,
+                    headimgurl:response.headimgurl,
+                    sex:response.sex==="1"?"男":"女",
+                    province:response.province
                 });
 
             }
