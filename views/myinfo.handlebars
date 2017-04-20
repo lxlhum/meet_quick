@@ -1,36 +1,40 @@
-<div class="page">
-    <div class="page__hd">
-        <h2 class="page__title">{{nikename}}的个人信息</h1>
-        <p class="page__desc">徽章系统敬请期待</p>
-    </div>
-    <div class="page__bd">
-        <div class="weui-cells">
-            <div class="weui-cell">
-                <div class="weui-cell__hd" style="position: relative;margin-right: 10px;">
-                    <img src={{headimgurl}} style="width: 120px;display: block" />
-
-                </div>
-                <div class="weui-cell__bd">
-                    <p>性别{{sex}}</p>
-                    <p>所在地{{province}}</p>
-                </div>
-                <div class="weui-cell__bd">
-                    <p>生成我的海报敬请期待</p>
-                </div>
-            </div>
+<div class="container">
+    <h2 class="form-signin-heading">{{nikename}}的个人信息</h1>
+        <p class="form-signin-heading">徽章系统敬请期待</p>
+        <img src={{headimgurl}} style="width: 120px;display: block" />
+        <div class="form-signin-heading">
+            <p>性别{{sex}}</p>
+            <p>所在地{{province}}</p>
         </div>
-    </div>
+        <div class="form-signin-heading">
+            <p>生成我的海报敬请期待</p>
+        </div>
+        <form class="form-signin">
+            <h2 class="form-signin-heading">Please sign in</h2>
+            <label for="inputEmail" class="sr-only">Email address</label>
+            <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
+            <label for="inputPassword" class="sr-only">Password</label>
+            <input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
+            <div class="checkbox">
+                <label>
+            <input type="checkbox" value="remember-me"> Remember me
+          </label>
+            </div>
+            <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+        </form>
+
 </div>
+<!-- /container -->
 
 
 
 {{#section 'css'}}
-{{!--<link rel="stylesheet" href="../stylesheets/weui.css" /> --}}
-<link rel="stylesheet" href="../stylesheets/example.css" /> 
+<!-- Bootstrap core CSS -->
+<link href="../stylesheets/bootstrap/bootstrap.css" rel="stylesheet">
+
+<!-- Custom styles for this template -->
+<link href="../stylesheets/signin.css" rel="stylesheet"> 
 {{/section}} 
 {{#section 'javascriptlib'}}
-<script src="../javascripts/zepto.min.js"></script>
-<script type="text/javascript" src="https://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
-<script src="https://res.wx.qq.com/open/libs/weuijs/1.0.0/weui.min.js"></script>
-<script src="../javascripts/example.js"></script>
+
 {{/section}}

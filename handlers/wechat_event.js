@@ -144,10 +144,30 @@ exports.wechat_event = (req, res, next) => {
 
                 }; break;
                 case "CLICK": {
-                    req.session.openid = message.FromUserName;
-                    // message.EventKey=message.EventKey+"?openid="+message.FromUserName;
-                    // console.log(message.EventKey);
-                    res.reply('生成我的海报成功');
+                   var qr_path = config.path_wechat + message.FromUserName + message.CreateTime + '.png';
+                    var a_path = config.path_wechat + 'a.jpg';
+                    var b_path = config.path_wechat + 'b.jpg';
+                    var c_path = config.path_wechat + 'c.png';
+                    var qr_path_out_resize = config.path_wechat + message.FromUserName + message.CreateTime + '_out1.png';
+                    var qr_path_out = config.path_wechat + message.FromUserName + message.CreateTime + '_out2.png';
+                    var media_id = "";
+                    (async () => {
+                        let tmpQRCodeURL = await getTmpQRCodeURL(message.FromUserName);
+                        await downTmpQRCode(qr_path, tmpQRCodeURL);
+                        await gmResize(qr_path, qr_path_out_resize);
+                        await gmComposite(a_path, qr_path_out_resize, qr_path_out);
+                        media_id = await douploadMedia(qr_path_out);
+                    })().then(() => {
+                        res.reply({
+                            type: "image",
+                            content: {
+                                mediaId: media_id
+                            }
+                        });
+                    }).catch((err) => {
+                        console.log(err);
+                        res.reply('获取海报失败');
+                    })
 
                 }; break;
 
