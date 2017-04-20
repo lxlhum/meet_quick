@@ -69,6 +69,10 @@ exports.myinfo = (req, res, next) => {
             }
             else {
                 console.log("Res:" + response);
+                for(var i in response)
+                {
+                    console.log(i+" Res:" + response[i]);
+                }
                 console.log("nickname:" + response["nickname"]);
                 console.log("headimgurl:" + response.headimgurl);
                 console.log("province:" + response.province);
