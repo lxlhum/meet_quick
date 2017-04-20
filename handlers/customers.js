@@ -63,7 +63,7 @@ exports.myinfo = (req, res, next) => {
         //     console.log(key + " result:" + result["data"][key]);
 
         var wherestr = { 'openid': result["data"]["openid"] };
-        Customer.Model.find(wherestr, function (err, response) {
+        Customer.Model.findone(wherestr, function (err, response) {
             if (err) {
                 console.log("Error:" + err);
             }
