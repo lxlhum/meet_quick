@@ -16,9 +16,9 @@ exports.wechat_event = (req, res, next) => {
     switch (message.MsgType) {
         case "text": {
             switch (message.Content) {
-                case "diaosi": {
-                    res.reply('hehe');
-                }; break;
+                // case "diaosi": {
+                //     res.reply('hehe');
+                // }; break;
                 case "getUserList": {
                     (async () => {
                         let openids = await getFollower();
@@ -58,25 +58,25 @@ exports.wechat_event = (req, res, next) => {
                         res.reply('获取二维码失败');
                     })
                 }; break;
-                case "hehe": {
-                    res.reply({
-                        type: "music",
-                        content: {
-                            title: "来段音乐吧",
-                            description: "一无所有",
-                            musicUrl: "http://mp3.com/xx.mp3",
-                            hqMusicUrl: "http://mp3.com/xx.mp3",
-                            thumbMediaId: "thisThumbMediaId"
-                        }
-                    });
-                } break;
+                // case "hehe": {
+                //     res.reply({
+                //         type: "music",
+                //         content: {
+                //             title: "来段音乐吧",
+                //             description: "一无所有",
+                //             musicUrl: "http://mp3.com/xx.mp3",
+                //             hqMusicUrl: "http://mp3.com/xx.mp3",
+                //             thumbMediaId: "thisThumbMediaId"
+                //         }
+                //     });
+                // } break;
                 default: {
                     res.reply([
                         {
-                            title: 'meet_test_shell',
-                            description: 'meet_test_shell',
-                            picurl: 'http://nodeapi.cloudfoundry.com/qrcode.jpg',
-                            url: 'http://www.yangtz.com'
+                            title: '让脾气大的熊孩子合作，我有妙招！',
+                            description: '家有“熊孩子”，脾气大！动不动就哼唧、哭闹、大喊大叫！动之以情晓之以理，连哄带骗的套路，越来越不管用！万能的朋友圈，请赐我一招，专治爱发脾气的熊孩子吧！',
+                            picurl: 'http://mmbiz.qpic.cn/mmbiz_png/LKrT69fByt6vHvlEdhYVOTib8Nre4tuoHdICe57hiafyymdUicEARQKBcjuTmeEBnXibKCCzX5NbU7dsZdicWtOWerA/0?wx_fmt=gif&tp=webp&wxfrom=5&wx_lazy=1',
+                            url: 'http://mp.weixin.qq.com/s/_bdZ8JokJY1u-vwa5CFpCw'
                         }
                     ]);
                 }
@@ -115,7 +115,7 @@ exports.wechat_event = (req, res, next) => {
                         //     console.log("recommenderInfo:" + key + ":" + recommenderInfo[key]); // { errcode: 0, errmsg: 'ok' }
                         // }
                     })().then(() => {
-                        res.reply('成功关注');
+                        res.reply('欢迎关注米特学堂，这里有最棒的家庭教育资源，最耐心的心理学讲师，米特学堂融入心理学和教育学的精准体验式教学方法，寓教于乐，与您的孩子共同成长。');
                     }).catch((err) => {
                         console.log(err);
                         res.reply('欢迎欢迎');
