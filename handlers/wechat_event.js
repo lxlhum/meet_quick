@@ -128,7 +128,8 @@ exports.wechat_event = (req, res, next) => {
                 case "SCAN": {
                     // res.reply('感谢您关注米特学院，么么哒，目前该功能还不完善，更多功能需要和彭老师一起定制哟' + message.EventKey);
                     try {
-                        res.redirect(301, 'http://www.yangtz.com/users/');
+                        // res.redirect(301, 'http://www.yangtz.com/users/');
+                        res.reply('感谢您关注米特学院，么么哒，目前该功能还不完善，更多功能需要和彭老师一起定制哟');
                     } catch (err) {
                         console.log(err);
                         res.reply('失败');
