@@ -331,7 +331,7 @@ var gmComposite = (a_path, qr_path_out_resize, qr_path_out) => {
     return new Promise((resolve, reject) => {
         gm(a_path)
             .composite(qr_path_out_resize)
-            .geometry('+150+650')
+            .geometry('+170+620')
             .write(qr_path_out, (err) => {
                 if (err) {
                     console.log("图片合成失败:" + err);
