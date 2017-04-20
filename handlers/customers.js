@@ -68,7 +68,11 @@ exports.myinfo = (req, res, next) => {
                 console.log("Error:" + err);
             }
             else {
-                console.log("Res:" + response);
+                // console.log("Res:" + response);
+                console.log("nickname:" + response.nickname);
+                console.log("headimgurl:" + response.headimgurl);
+                console.log("province:" + response.province);
+                console.log("sex:" + response.sex);
                 res.render('myinfo', {
                     layout: "wechat_web",
                     title: '米特学堂后台管理系统',
