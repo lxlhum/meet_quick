@@ -1,39 +1,36 @@
-{{!--<div class="page">
+<div class="page">
     <div class="page__hd">
-        <h1 class="page__title">用户信息页</h1>
-        <p class="page__desc">徽章</p>
+        <h2 class="page__title">{{nikename}}的个人信息</h1>
+        <p class="page__desc">徽章系统敬请期待</p>
     </div>
     <div class="page__bd">
         <div class="weui-cells">
             <div class="weui-cell">
                 <div class="weui-cell__hd" style="position: relative;margin-right: 10px;">
-                    <img src={{headimgurl}} style="width: 50px;display: block" />
+                    <img src={{headimgurl}} style="width: 120px;display: block" />
 
                 </div>
                 <div class="weui-cell__bd">
-                    <p>{{nikename}}</p>
-                
+                    <p>性别{{sex}}</p>
+                    <p>所在地{{province}}</p>
+                </div>
+                <div class="weui-cell__bd">
+                    <p>生成我的海报敬请期待</p>
                 </div>
             </div>
         </div>
     </div>
-</div>--}}
-
-
-{{#each response}}
-<img src={{headimgurl}} style="width: 50px;display: block" />
-<p>{{nikename}}</p>
-{{/each}}
+</div>
 
 
 
 {{#section 'css'}}
 {{!--<link rel="stylesheet" href="../stylesheets/weui.css" /> --}}
-{{!--<link rel="stylesheet" href="../stylesheets/example.css" />--}} 
+<link rel="stylesheet" href="../stylesheets/example.css" /> 
 {{/section}} 
 {{#section 'javascriptlib'}}
-{{!--<script src="../javascripts/zepto.min.js"></script>
+<script src="../javascripts/zepto.min.js"></script>
 <script type="text/javascript" src="https://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
 <script src="https://res.wx.qq.com/open/libs/weuijs/1.0.0/weui.min.js"></script>
-<script src="../javascripts/example.js"></script>--}}
+<script src="../javascripts/example.js"></script>
 {{/section}}

@@ -68,11 +68,6 @@ exports.myinfo = (req, res, next) => {
                 console.log("Error:" + err);
             }
             else {
-                console.log("Res:" + response);
-                for(var i in response)
-                {
-                    console.log(i+" Res:" + response[i]);
-                }
                 console.log("nickname:" + response["nickname"]);
                 console.log("headimgurl:" + response.headimgurl);
                 console.log("province:" + response.province);
@@ -83,8 +78,7 @@ exports.myinfo = (req, res, next) => {
                     nickname:response.nickname,
                     headimgurl:response.headimgurl,
                     sex:response.sex==="1"?"男":"女",
-                    province:response.province,
-                    response:response
+                    province:response.province
                 });
 
             }
