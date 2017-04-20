@@ -53,14 +53,32 @@ exports.myinfo = (req, res, next) => {
     //获取票券
     client.getAccessToken(code, function (err, result) {
         // var openid = result.data.openid;
-        console.log("err:" + err);
-        console.log("code:" + code);
+        // console.log("err:" + err);
+        // console.log("code:" + code);
 
-        for (var key in result)
-            console.log(key + " result:" + result[key]);
+        // for (var key in result)
+        //     console.log(key + " result:" + result[key]);
 
-        for (var key in result["data"])
-            console.log(key + " result:" + result["data"][key]);
+        // for (var key in result["data"])
+        //     console.log(key + " result:" + result["data"][key]);
+
+        var wherestr = { 'openid': result["data"]["openid"] };
+        Customer.Model.find(wherestr, function (err, res) {
+            if (err) {
+                console.log("Error:" + err);
+            }
+            else {
+                console.log("Res:" + res);
+                res.render('myinfo', {
+                    layout: "wechat_web",
+                    title: '米特学堂后台管理系统',
+                    result: res
+                });
+
+            }
+        })
+
+
     });
-    res.render('myinfo', { layout: "wechat_web", title: '米特学堂后台管理系统' });
+
 }
