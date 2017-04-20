@@ -63,16 +63,16 @@ exports.myinfo = (req, res, next) => {
         //     console.log(key + " result:" + result["data"][key]);
 
         var wherestr = { 'openid': result["data"]["openid"] };
-        Customer.Model.find(wherestr, function (err, res) {
+        Customer.Model.find(wherestr, function (err, response) {
             if (err) {
                 console.log("Error:" + err);
             }
             else {
-                console.log("Res:" + res);
+                console.log("Res:" + response);
                 res.render('myinfo', {
                     layout: "wechat_web",
                     title: '米特学堂后台管理系统',
-                    result: res
+                    result: response
                 });
 
             }
