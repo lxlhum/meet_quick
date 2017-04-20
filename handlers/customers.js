@@ -55,8 +55,8 @@ exports.myinfo = (req, res, next) => {
         // var openid = result.data.openid;
         console.log("err:" + err); 
         console.log("code:" + code);    
-        for(var key in result)
-        console.log(key+" result:" + result[key]);    
+        for(var key in result["data"])
+        console.log(key+" result:" + result["data"][key]);    
         });
     res.render('myinfo', {layout: "wechat_web", title: '米特学堂后台管理系统' });
 }
