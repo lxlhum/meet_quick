@@ -1,27 +1,14 @@
 <div class="container">
-    <h2 class="form-signin-heading">{{nikename}}的个人信息</h1>
+
+    <form class="form-signin">
+        <h2 class="form-signin-heading">{{nickname}}的个人信息</h2>
         <p class="form-signin-heading">徽章系统敬请期待</p>
         <img src={{headimgurl}} style="width: 120px;display: block" />
         <div class="form-signin-heading">
-            <p>性别{{sex}}</p>
-            <p>所在地{{province}}</p>
+            <p>性别:{{sex}}</p>
+            <p>所在地:{{province}}</p>
         </div>
-        <div class="form-signin-heading">
-            <p>生成我的海报敬请期待</p>
-        </div>
-        <form class="form-signin">
-            <h2 class="form-signin-heading">Please sign in</h2>
-            <label for="inputEmail" class="sr-only">Email address</label>
-            <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
-            <label for="inputPassword" class="sr-only">Password</label>
-            <input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
-            <div class="checkbox">
-                <label>
-            <input type="checkbox" value="remember-me"> Remember me
-          </label>
-            </div>
-            <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
-        </form>
+    </form>
 
 </div>
 <!-- /container -->
@@ -33,8 +20,4 @@
 <link href="../stylesheets/bootstrap/bootstrap.css" rel="stylesheet">
 
 <!-- Custom styles for this template -->
-<link href="../stylesheets/signin.css" rel="stylesheet"> 
-{{/section}} 
-{{#section 'javascriptlib'}}
-
-{{/section}}
+<link href="../stylesheets/signin.css" rel="stylesheet"> {{/section}} {{#section 'javascriptlib'}} {{/section}}

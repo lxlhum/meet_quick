@@ -258,7 +258,7 @@ var getTmpQRCodeURL = (open_id) => {
         //1：代表某课程
         //以此类推
         var qr_event_code = 0;
-        var exist_time = 600;
+        var exist_time = 864000;
         api.createTmpQRCode(qr_event_code, exist_time, (err, data, response) => {
             if (err) {
                 console.log("获取二维码信息失败:" + err);
@@ -312,7 +312,7 @@ var downTmpQRCode = (qr_path, qucodemedia) => {
 var gmResize = (qr_path, qr_path_out_resize) => {
     return new Promise((resolve, reject) => {
         gm(qr_path)
-            .resize(126, 126)
+            .resize(164, 164)
             .noProfile()
             .write(qr_path_out_resize, (err) => {
                 if (err) {
@@ -331,7 +331,7 @@ var gmComposite = (a_path, qr_path_out_resize, qr_path_out) => {
     return new Promise((resolve, reject) => {
         gm(a_path)
             .composite(qr_path_out_resize)
-            .geometry('+130+67')
+            .geometry('+130+700')
             .write(qr_path_out, (err) => {
                 if (err) {
                     console.log("图片合成失败:" + err);
