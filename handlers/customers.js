@@ -27,7 +27,7 @@ exports.customersList = (req, res, next) => {
     //     }
     // })
     var pageNum = req.query.page ? req.query.page : 1;
-    var pageSize = 2;
+    var pageSize = 6;
 
     Customer.PageQuery(pageNum, pageSize, Customer.Model, "", {}, {}).then((pageResult) => {
 
