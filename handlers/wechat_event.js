@@ -115,7 +115,20 @@ exports.wechat_event = (req, res, next) => {
                         //     console.log("recommenderInfo:" + key + ":" + recommenderInfo[key]); // { errcode: 0, errmsg: 'ok' }
                         // }
                     })().then(() => {
-                        res.reply('欢迎关注米特学堂，这里有最棒的家庭教育资源，最耐心的心理学讲师，米特学堂融入心理学和教育学的精准体验式教学方法，寓教于乐，与您的孩子共同成长。');
+                        (async () => {
+                            let img_path_out = config.path_wechat + 'd.jpg';
+                            media_id = await douploadMedia(img_path_out);
+                        })().then(() => {
+                            res.reply({
+                                type: "image",
+                                content: {
+                                    mediaId: media_id
+                                }
+                            });
+                        }).catch((err) => {
+                            console.log(err);
+                            res.reply('获取海报失败');
+                        })
                     }).catch((err) => {
                         console.log(err);
                         res.reply('欢迎欢迎');
@@ -145,7 +158,7 @@ exports.wechat_event = (req, res, next) => {
 
                 }; break;
                 case "CLICK": {
-                   var qr_path = config.path_wechat + message.FromUserName + message.CreateTime + '.png';
+                    var qr_path = config.path_wechat + message.FromUserName + message.CreateTime + '.png';
                     var a_path = config.path_wechat + 'a.jpg';
                     var b_path = config.path_wechat + 'b.jpg';
                     var c_path = config.path_wechat + 'c.png';
