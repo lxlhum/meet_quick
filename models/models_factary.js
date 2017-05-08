@@ -7,7 +7,15 @@ var Model = (schema_json_name, doc_name) => {
     var doc_name = doc_name ? doc_name : schema_json_name;
     return mongoose.model(doc_name, UserSchema);
 };
-
+/**
+ * 
+ * @param {*} page 显示到了第几页
+ * @param {*} pageSize 每页显示多少行数据
+ * @param {*} Model 数据库操作model，如user、page等
+ * @param {*} populate 数据的限制条件和别名
+ * @param {*} queryParams 查询条件
+ * @param {*} sortParams 排序条件
+ */
 var PageQuery = async (page, pageSize, Model, populate, queryParams, sortParams) => {
     var start = (page - 1) * pageSize;
     var $page = {
