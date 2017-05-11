@@ -6,7 +6,10 @@ const config = require('../profile.json');
 const wechat_event = require(config.wechat_event);
 
 const menu = JSON.stringify(require('../menu.json'));
-api.createMenu(menu, (err, result) => { });
+api.createMenu(menu, function(err, result){
+  console.log("菜单初始化完成"+result);
+  console.log("err"+err);
+ });
 
 router.get('/', (req, res, next) => {
 
